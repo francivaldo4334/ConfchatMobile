@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Confchat</string>
+    <string name="logar">Logar</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="logup">Logup</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="nome_de_usurious">Nome de usurious</string>
+    <string name="senha">Senha</string>
+    <string name="confirmar_senha">Confirmar senha</string>
+    <string name="continuar">Continuar</string>
+</resources>
