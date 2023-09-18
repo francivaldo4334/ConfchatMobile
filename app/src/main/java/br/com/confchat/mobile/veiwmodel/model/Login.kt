@@ -9,12 +9,3 @@ data class Login(
     var password: String = "",
     var totpCode: String = ""
 )
-fun Login.toDto():LoginDto{
-    return LoginDto(
-        deviceId = this.deviceId,
-        deviceName = this.deviceName,
-        loginOrEmail = this.loginOrEmail,
-        password = this.password,
-        totpCode = this.totpCode
-    )
-}

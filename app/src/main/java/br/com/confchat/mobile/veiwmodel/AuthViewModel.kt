@@ -26,4 +26,9 @@ class AuthViewModel @Inject constructor(private val auth:IAuthDomainRepository):
 
     }
 
+    fun checkLogin() : Boolean {
+        var response = auth.CheckLogin()
+        return response;
+    }
+
 }
