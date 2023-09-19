@@ -21,6 +21,18 @@ class UserApiRepository constructor(private val user : ApiConfchatService) : IUs
             Log.e(UserApiRepository::class.simpleName,e.message.toString())
             return emptyList()
         }
+    }
 
+    override fun getMe(): ResponseApi<String> {
+        val call = user.getMe()
+        try {
+            val response = call.execute()
+            if(response.isSuccessful)
+                return response.body()!!
+            return ResponseApi("",403)
+        }
+        catch (e:Exception){
+            return ResponseApi(e.message.toString(),503)
+        }
     }
 }

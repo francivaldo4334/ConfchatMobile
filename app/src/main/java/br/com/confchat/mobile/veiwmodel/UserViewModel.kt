@@ -40,10 +40,4 @@ constructor(
             }
         }
     }
-        //user.getListDevice()
-//        .flatMapConcat {
-//            var vm = it.map { it.toViewModel() }
-//            MutableStateFlow(vm)
-//        }
-//    .stateIn( viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 }

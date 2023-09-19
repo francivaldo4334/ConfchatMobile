@@ -10,5 +10,4 @@ class UserDomainRepository constructor(private val user : IUserApiRepository) : 
         var response : List<DeviceApi> = user.getListDevice()
         return response.map { it.toViewModel() };
     }
-
 }

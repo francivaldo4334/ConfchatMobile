@@ -6,4 +6,5 @@ interface IAuthDomainRepository {
     fun login(login: Login):Pair<Boolean,String>;
     fun register(function: (Boolean,String) -> Unit);
     abstract fun CheckLogin(): Boolean
+    abstract fun updateToken(tokenUpdate:String):Boolean
 }

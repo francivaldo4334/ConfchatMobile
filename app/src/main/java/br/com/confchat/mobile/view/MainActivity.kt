@@ -29,13 +29,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             ConfchatTheme {
                 val viewModel:AuthViewModel = hiltViewModel()
-                LaunchedEffect(key1 = Unit, block = {
-                    delay(2000)
-                    if(viewModel.checkLogin()){
-                        startActivity(Intent(this@MainActivity, HomeActivity::class.java))
-                        finish()
-                    }
-                })
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     var navController = rememberNavController()
                     NavHost(navController = navController, startDestination = Route.Login){
