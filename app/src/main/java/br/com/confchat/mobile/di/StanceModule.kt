@@ -25,8 +25,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object StanceModule {
-//    private val BASE_URL="http://52.67.244.32/"
-    private val BASE_URL="http://192.168.0.9:8080/"
+    private val BASE_URL="http://52.67.244.32/"
+//    private val BASE_URL="http://192.168.0.9:8080/"
     private val authInterceptor = Interceptor{chain->
         val request = chain.request();
         val newRequest =
