@@ -18,7 +18,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import br.com.confchat.mobile.veiwmodel.UserViewModel
+import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
 import br.com.confchat.mobile.veiwmodel.model.Device
+import br.com.confchat.mobile.view.screens.ScreenChat
+import br.com.confchat.mobile.view.screens.ScreenHome
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,17 +31,10 @@ class HomeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val viewModel : UserViewModel = hiltViewModel()
-            val lsDevice : List<Device> by viewModel.listDevice.collectAsState()
-            LaunchedEffect(Unit){
-                viewModel.getListDevice()
-            }
+            val listContact : List<ContactViewModel> by viewModel.listContact.collectAsState()
             ConfchatTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    LazyColumn{
-                        items(lsDevice){
-                            Text(text = it.name)
-                        }
-                    }
+                    ScreenChat(lsContacts = listContact)
                 }
             }
         }

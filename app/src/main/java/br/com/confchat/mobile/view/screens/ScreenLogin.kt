@@ -34,6 +34,7 @@ import br.com.confchat.mobile.view.MainActivity
 import br.com.confchat.mobile.view.constants.AuthDoc
 import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.enums.IconsLayout
+import br.com.confchat.mobile.view.enums.TextFieldType
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 
 @Composable
@@ -60,8 +61,8 @@ fun ScreenLogin(navController: NavController,viewModel:AuthViewModel = hiltViewM
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 ComponentText1(text = stringResource(R.string.login))
-                ComponentTextField1(value = loginOrEmai, onChange = {loginOrEmai = it})
-                ComponentTextField1(value = password, onChange = {password = it})
+                ComponentTextField1(value = loginOrEmai, onChange = {loginOrEmai = it}, type = TextFieldType.Email)
+                ComponentTextField1(value = password, onChange = {password = it}, type = TextFieldType.Password)
                 ComponentButton1(text = stringResource(R.string.logar)) {
                     AuthDoc.login.loginOrEmail = loginOrEmai
                     AuthDoc.login.password = password

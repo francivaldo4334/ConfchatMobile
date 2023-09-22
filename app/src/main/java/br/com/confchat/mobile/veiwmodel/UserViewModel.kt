@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.confchat.mobile.data.network.response.DeviceApi
 import br.com.confchat.mobile.domain.IUserDomainRepository
 import br.com.confchat.mobile.domain.model.toViewModel
+import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
 import br.com.confchat.mobile.veiwmodel.model.Device
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,7 @@ class UserViewModel
 constructor(
     private val user : IUserDomainRepository
 ) : ViewModel(){
+    val listContact = MutableStateFlow(emptyList<ContactViewModel>())
     var listDevice = MutableStateFlow(emptyList<Device>())
     fun getListDevice() {
         viewModelScope.launch(Dispatchers.IO) {

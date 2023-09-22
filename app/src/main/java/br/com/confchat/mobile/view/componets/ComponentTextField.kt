@@ -19,7 +19,7 @@ import br.com.confchat.mobile.R
 import br.com.confchat.mobile.view.enums.TextFieldType
 
 @Composable
-fun ComponentTextField1(value:String,type:TextFieldType = TextFieldType.None,onChange:(String)->Unit) {
+fun ComponentTextField1(value:String,type:TextFieldType = TextFieldType.None,modifier: Modifier = Modifier,onChange:(String)->Unit) {
     when(type){
         TextFieldType.Email ->{
             Email(value = value,onChange = onChange)
@@ -40,17 +40,16 @@ fun ComponentTextField1(value:String,type:TextFieldType = TextFieldType.None,onC
             Date(value = value, onChange = onChange)
         }
         else -> {
-            None(value = value,onChange = onChange)
+            None(value = value,onChange = onChange, modifier = modifier)
         }
     }
 }
 @Composable
-private fun None(value:String,onChange:(String)->Unit) {
+private fun None(value:String,onChange:(String)->Unit,modifier: Modifier = Modifier) {
     BasicTextField(
         value = value,
         onValueChange = onChange,
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .padding(horizontal = 16.dp)
             .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 16.dp)
