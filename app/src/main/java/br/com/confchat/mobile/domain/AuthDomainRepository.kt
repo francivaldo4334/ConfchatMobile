@@ -96,6 +96,12 @@ class AuthDomainRepository constructor(
         return false
     }
 
+    override fun logout() {
+        sharedEdit.remove(MyConstants.TOKEN_UPDATE_DATA)
+        sharedEdit.remove(MyConstants.TOKEN_LOGIN_DATA)
+        sharedEdit.apply()
+    }
+
     private fun checkTokenValid():Boolean{
         var result = user.getMe()
         when(result.status){

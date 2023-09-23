@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import br.com.confchat.mobile.veiwmodel.AuthViewModel
 import br.com.confchat.mobile.veiwmodel.UserViewModel
 import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
 import br.com.confchat.mobile.veiwmodel.model.Device
@@ -31,11 +32,12 @@ class HomeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val viewModel : UserViewModel = hiltViewModel()
+            val viewModelAuth : AuthViewModel = hiltViewModel()
             val listContact : List<ContactViewModel> by viewModel.listContact.collectAsState()
             viewModel.loadData()
             ConfchatTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    ScreenChat(lsContacts = listContact)
+                    ScreenChat(lsContacts = listContact,viewModelAuth)
                 }
             }
         }

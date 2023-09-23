@@ -9,4 +9,5 @@ interface IAuthDomainRepository {
     abstract fun CheckLogin(): Boolean
     abstract fun updateToken(tokenUpdate:String):Boolean
     fun checkVerificationCode(code:String): Boolean
+    fun logout()
 }

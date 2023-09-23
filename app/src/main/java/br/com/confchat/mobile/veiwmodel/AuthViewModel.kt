@@ -50,4 +50,8 @@ class AuthViewModel @Inject constructor(private val auth:IAuthDomainRepository):
         }
     }
 
+    fun logout() {
+        auth.logout()
+    }
+
 }

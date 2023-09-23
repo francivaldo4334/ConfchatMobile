@@ -32,7 +32,7 @@ import br.com.confchat.mobile.view.enums.TextFieldType
 @Composable
 fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hiltViewModel()) {
     var birthDay by remember{
-        mutableStateOf("yyyy-dd-mm")
+        mutableStateOf("")
     }
     val context = LocalContext.current as AuthenticationActivity
     LazyColumn(
