@@ -3,11 +3,15 @@ package br.com.confchat.mobile.di
 import android.content.Context
 import br.com.confchat.mobile.common.MyConstants
 import br.com.confchat.mobile.data.network.repository.AuthApiRepository
+import br.com.confchat.mobile.data.network.repository.ChatApiRepository
 import br.com.confchat.mobile.data.network.repository.IAuthApiRepository
+import br.com.confchat.mobile.data.network.repository.IChatApiRepository
 import br.com.confchat.mobile.data.network.repository.IUserApiRepository
 import br.com.confchat.mobile.data.network.repository.UserApiRepository
 import br.com.confchat.mobile.data.network.service.ApiConfchatService
 import br.com.confchat.mobile.domain.AuthDomainRepository
+import br.com.confchat.mobile.domain.ChatDomainRepository
+import br.com.confchat.mobile.domain.IChatDomainRepository
 import br.com.confchat.mobile.domain.UserDomainRepository
 import dagger.Module
 import dagger.Provides
@@ -17,6 +21,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.intellij.lang.annotations.PrintFormat
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -26,6 +31,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object StanceModule {
     private val BASE_URL="http://api.confchat.com.br/"
+//    private val BASE_URL="http://192.168.0.9:8080/"
     private val authInterceptor = Interceptor{chain->
         val request = chain.request();
         val newRequest =
@@ -36,7 +42,7 @@ object StanceModule {
                 val token = MyConstants.TOKEN
                 val newHeaders = request.headers.newBuilder()
                     .add("Authorization","Bearer $token")
-                    .build()
+                        .build()
                 val newRequestBuilder = request.newBuilder().headers(newHeaders)
                 newRequestBuilder.build()
             }
@@ -79,7 +85,17 @@ object StanceModule {
     }
     @Provides
     @Singleton
+    fun providerChatApiRepository(it:ApiConfchatService): IChatApiRepository{
+        return ChatApiRepository(it)
+    }
+    @Provides
+    @Singleton
     fun providerUserDomainRepository(it: IUserApiRepository): UserDomainRepository {
         return UserDomainRepository(it)
+    }
+    @Provides
+    @Singleton
+    fun providerChatDomaiRepository(it:IChatApiRepository):IChatDomainRepository{
+        return ChatDomainRepository(it)
     }
 }

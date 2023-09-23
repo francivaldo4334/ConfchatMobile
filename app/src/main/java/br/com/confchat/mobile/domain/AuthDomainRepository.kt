@@ -3,11 +3,14 @@ package br.com.confchat.mobile.domain
 import android.content.Context
 import android.os.Build
 import br.com.confchat.mobile.common.MyConstants
+import br.com.confchat.mobile.data.network.dto.CheckVerificationCodeDto
 import br.com.confchat.mobile.data.network.repository.IAuthApiRepository
 import br.com.confchat.mobile.data.network.repository.IUserApiRepository
 import br.com.confchat.mobile.data.network.response.ResponseApi
 import br.com.confchat.mobile.domain.model.toDto
 import br.com.confchat.mobile.veiwmodel.model.Login
+import br.com.confchat.mobile.veiwmodel.model.Register
+import br.com.confchat.mobile.view.constants.AuthDoc
 
 class AuthDomainRepository constructor(
     private val auth: IAuthApiRepository,
@@ -46,8 +49,11 @@ class AuthDomainRepository constructor(
             "$manufacturer $model"
         }
     }
-    override fun register(function: (Boolean,String) -> Unit) {
-
+    override fun register(it:Register) : Pair<Boolean,String> {
+        var response = auth.Register(it.toDto())
+        if(response.status == 200)
+            return Pair(true,response.content)
+        return Pair(false,response.content)
     }
 
     override fun CheckLogin(): Boolean {
@@ -77,6 +83,19 @@ class AuthDomainRepository constructor(
         }
     }
 
+    override fun checkVerificationCode(code:String): Boolean {
+
+        val response = auth.checkVerificationCode(
+            CheckVerificationCodeDto(
+                code = code,
+                email = AuthDoc.register.email
+            )
+        )
+        if(response.status == 200)
+            return true
+        return false
+    }
+
     private fun checkTokenValid():Boolean{
         var result = user.getMe()
         when(result.status){
@@ -84,7 +103,7 @@ class AuthDomainRepository constructor(
                 //TODO:Save data and load cache
                 return true
             }
-            403 ->{
+-            403 ->{
                 var result = updateToken(MyConstants.TOKEN_UPDATE)
                 return result
             }

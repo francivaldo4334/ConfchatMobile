@@ -162,7 +162,7 @@ private fun Date(value:String,onChange:(String)->Unit) {
             .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 16.dp)
             .height(50.dp),
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text)
     )
 }
 @Preview

@@ -1,5 +1,6 @@
 package br.com.confchat.mobile.data.network.repository
 
+import br.com.confchat.mobile.data.network.dto.CheckVerificationCodeDto
 import br.com.confchat.mobile.data.network.dto.LoginDto
 import br.com.confchat.mobile.data.network.dto.RegisterDto
 import br.com.confchat.mobile.data.network.response.ResponseApi
@@ -22,7 +23,16 @@ class AuthApiRepository constructor(private val api: ApiConfchatService): IAuthA
     }
 
     override fun Register(it: RegisterDto): ResponseApi<String> {
-        TODO("Not yet implemented")
+        val call = api.Register(it)
+        try {
+            var response = call.execute()
+            if(response.isSuccessful)
+                return response.body()!!
+            return response.body()!!
+        }
+        catch (e:Exception){
+            return ResponseApi("Error",503)
+        }
     }
 
     override fun UpdateToken(it: String): ResponseApi<String> {
@@ -37,6 +47,19 @@ class AuthApiRepository constructor(private val api: ApiConfchatService): IAuthA
         }
         catch (e:Exception){
             return ResponseApi(e.message.toString(),503)
+        }
+    }
+
+    override fun checkVerificationCode(it: CheckVerificationCodeDto): ResponseApi<String> {
+        val call = api.checkVerificationCode(it)
+        try {
+            val response = call.execute()
+            if(response.isSuccessful)
+                return response.body()!!
+            return response.body()!!
+        }
+        catch (e : Exception){
+            return ResponseApi("Error",503)
         }
     }
 }

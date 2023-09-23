@@ -25,7 +25,7 @@ class SplashScreenActivity : ComponentActivity() {
                         finish()
                     }
                     else{
-                        startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                        startActivity(Intent(this@SplashScreenActivity, AuthenticationActivity::class.java))
                         finish()
                     }
                 }

@@ -32,6 +32,7 @@ class HomeActivity : ComponentActivity() {
         setContent {
             val viewModel : UserViewModel = hiltViewModel()
             val listContact : List<ContactViewModel> by viewModel.listContact.collectAsState()
+            viewModel.loadData()
             ConfchatTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     ScreenChat(lsContacts = listContact)

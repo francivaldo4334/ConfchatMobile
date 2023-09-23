@@ -30,7 +30,7 @@ import br.com.confchat.mobile.view.Components.ComponentText1
 import br.com.confchat.mobile.view.Components.ComponentTextField1
 import br.com.confchat.mobile.view.Components.ComponentTextLink1
 import br.com.confchat.mobile.view.HomeActivity
-import br.com.confchat.mobile.view.MainActivity
+import br.com.confchat.mobile.view.AuthenticationActivity
 import br.com.confchat.mobile.view.constants.AuthDoc
 import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.enums.IconsLayout
@@ -45,7 +45,7 @@ fun ScreenLogin(navController: NavController,viewModel:AuthViewModel = hiltViewM
     var password by remember {
         mutableStateOf("")
     }
-    val context = LocalContext.current as MainActivity
+    val context = LocalContext.current as AuthenticationActivity
     LazyColumn(
         Modifier
             .fillMaxSize()

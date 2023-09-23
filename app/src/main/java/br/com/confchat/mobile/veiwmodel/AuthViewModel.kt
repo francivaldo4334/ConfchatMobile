@@ -24,7 +24,12 @@ class AuthViewModel @Inject constructor(private val auth:IAuthDomainRepository):
     }
 
     fun register(function: (Boolean,String) -> Unit) {
-
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = auth.register(AuthDoc.register)
+            viewModelScope.launch(Dispatchers.Main) {
+                function(response.first,response.second)
+            }
+        }
     }
 
     fun checkLogin(function: (Boolean) -> Unit) {
@@ -32,6 +37,15 @@ class AuthViewModel @Inject constructor(private val auth:IAuthDomainRepository):
             var response = auth.CheckLogin()
             viewModelScope.launch(Dispatchers.Main) {
                 function.invoke(response)
+            }
+        }
+    }
+
+    fun checkVerificationCode(code: String,function: (Boolean) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = auth.checkVerificationCode(code)
+            viewModelScope.launch(Dispatchers.Main) {
+                function(response)
             }
         }
     }

@@ -23,7 +23,7 @@ import br.com.confchat.mobile.view.Components.ComponentButton1
 import br.com.confchat.mobile.view.Components.ComponentIcon1
 import br.com.confchat.mobile.view.Components.ComponentTextField1
 import br.com.confchat.mobile.view.Components.ComponentTextLink1
-import br.com.confchat.mobile.view.MainActivity
+import br.com.confchat.mobile.view.AuthenticationActivity
 import br.com.confchat.mobile.view.constants.AuthDoc
 import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.enums.IconsLayout
@@ -32,9 +32,9 @@ import br.com.confchat.mobile.view.enums.TextFieldType
 @Composable
 fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hiltViewModel()) {
     var birthDay by remember{
-        mutableStateOf("")
+        mutableStateOf("yyyy-dd-mm")
     }
-    val context = LocalContext.current as MainActivity
+    val context = LocalContext.current as AuthenticationActivity
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
@@ -51,7 +51,7 @@ fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hilt
                 AuthDoc.register.birthDay = birthDay
                 viewModel.register(){isSuccess,messge ->
                     if(isSuccess){
-                        navController.navigate(Route.Login){popUpTo(0)}
+                        navController.navigate(Route.VerificationCode)
                     }
                     else{
                         Toast.makeText(context,messge,Toast.LENGTH_LONG).show()

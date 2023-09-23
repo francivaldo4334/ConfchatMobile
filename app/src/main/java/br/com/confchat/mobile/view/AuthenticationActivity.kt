@@ -1,13 +1,11 @@
 package br.com.confchat.mobile.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -18,12 +16,12 @@ import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.screens.ScreenBirthDay
 import br.com.confchat.mobile.view.screens.ScreenLogin
 import br.com.confchat.mobile.view.screens.ScreenLogup
+import br.com.confchat.mobile.view.screens.ScreenVerificationCode
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class AuthenticationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -36,10 +34,13 @@ class MainActivity : ComponentActivity() {
                             ScreenLogin(navController,viewModel)
                         }
                         composable(Route.Logup){
-                            ScreenLogup(navController)
+                            ScreenLogup(navController,viewModel)
                         }
                         composable(Route.BirthDay){
                             ScreenBirthDay(navController,viewModel)
+                        }
+                        composable(Route.VerificationCode){
+                            ScreenVerificationCode(navController,viewModel)
                         }
                     }
                 }
