@@ -28,7 +28,7 @@ class AuthApiRepository constructor(private val api: ApiConfchatService): IAuthA
             var response = call.execute()
             if(response.isSuccessful)
                 return response.body()!!
-            return response.body()!!
+            return response.errorBody() as ResponseApi<String>
         }
         catch (e:Exception){
             return ResponseApi("Error",503)

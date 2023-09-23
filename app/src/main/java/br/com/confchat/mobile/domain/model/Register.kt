@@ -5,7 +5,8 @@ import br.com.confchat.mobile.veiwmodel.model.Register
 
 fun Register.toDto() : RegisterDto{
     val register = RegisterDto()
-    register.birthDay = this.birthDay
+    val regex = Regex("(\\d{4})(\\d{2})(\\d{2})")
+    register.birthDay = this.birthDay.replace(regex,"$1-$2-$3")
     register.email = this.email
     register.login = this.login
     register.name = this.name
