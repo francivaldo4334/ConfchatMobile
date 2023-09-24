@@ -9,4 +9,5 @@ object MyConstants{
     val AUTENTICATION_DATA = "AUTENTICATION"
     var newMessages = listOf<Pair<String,String>>()
     var contactPage = 0;
+    var messagePage = 0;
 }

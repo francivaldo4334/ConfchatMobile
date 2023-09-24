@@ -1,26 +1,22 @@
 package br.com.confchat.mobile.view.screens
 
-import android.app.Activity
-import android.content.Intent
-import android.provider.ContactsContract.Contacts
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,81 +24,80 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import br.com.confchat.mobile.R
-import br.com.confchat.mobile.veiwmodel.AuthViewModel
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
-import br.com.confchat.mobile.view.AuthenticationActivity
-import br.com.confchat.mobile.view.componets.ComponentImageProfile
-import br.com.confchat.mobile.view.componets.ComponentItemListContact
-import br.com.confchat.mobile.view.componets.ComponentTextFieldSearch
-import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
-import dagger.hilt.android.qualifiers.ActivityContext
+import br.com.confchat.mobile.veiwmodel.model.Message
+import br.com.confchat.mobile.view.Components.ComponentChat1
+import br.com.confchat.mobile.view.componets.ComponentImageMinContact
+import br.com.confchat.mobile.view.componets.ComponentTextFieldMessage
+import br.com.confchat.mobile.view.enums.ChatDirection
 
 @Composable
-fun ScreenChat(lsContacts: List<ContactViewModel>,authViewModel:AuthViewModel = hiltViewModel()) {
-    var search by remember {
+fun ScreenChat(listMessage:List<Message>,contact:ContactViewModel,navController: NavController) {
+    var message by remember{
         mutableStateOf("")
     }
-    var expandDropDownMenu by remember{ mutableStateOf(false) }
-    val context = LocalContext.current as Activity
-    Box(Modifier.fillMaxSize()){
-        LazyColumn(
-            modifier = Modifier.fillMaxSize()
-        ){
-            item{
-                Row (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, end = 16.dp)
-                ) {
-                    IconButton(onClick = {
-                        expandDropDownMenu = !expandDropDownMenu
-                    }) {
-                        Icon(imageVector = Icons.Default.Menu, contentDescription = null)
-                    }
-                    DropdownMenu(expanded = expandDropDownMenu, onDismissRequest = { expandDropDownMenu = false }) {
-                        DropdownMenuItem(
-                            text = {
-                                Text(text = "Deslogar")
-                            },
-                            onClick = {
-                                authViewModel.logout()
-                                context.startActivity(
-                                    Intent(context,AuthenticationActivity::class.java)
-                                )
-                                context.finish()
-                            }
-                        )
-                    }
-                    ComponentTextFieldSearch(value = search, onChange = {search = it})
-                    IconButton(onClick = { /*TODO*/ }) {
-                        ComponentImageProfile()
-                    }
-                }
+    Column(
+        modifier = Modifier.fillMaxSize().padding(top = 16.dp, bottom = 16.dp),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row(
+            Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(imageVector = Icons.Default.KeyboardArrowLeft,contentDescription = null)
             }
-            item {
-                Text(text = stringResource(R.string.mensagens),modifier = Modifier.padding(start = 16.dp, top = 16.dp))
+            ComponentImageMinContact(contact.urlImg)
+            Spacer(modifier = Modifier.width(16.dp))
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(text = contact.name, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                Text(text = contact.previewMessage, fontSize = 12.sp)
             }
-            items(lsContacts){
-                ComponentItemListContact(it)
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = Icons.Default.Phone, contentDescription = null)
+            }
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = Icons.Default.Settings, contentDescription = null)
             }
         }
-        FloatingActionButton(onClick = { /*TODO*/ },modifier = Modifier
-            .align(Alignment.BottomEnd)
-            .padding(bottom = 16.dp, end = 16.dp)) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = null)
+        LazyColumn(
+            Modifier.weight(1f).padding(bottom = 16.dp),
+            verticalArrangement = Arrangement.Bottom
+        ){
+            items(listMessage) {
+                ComponentChat1(
+                    text = it.message,
+                    dir = if(it.fromUserId == contact.id){
+                        ChatDirection.Left
+                    }
+                    else{
+                        ChatDirection.Rigth
+                    }
+                )
+            }
+        }
+        Row {
+            ComponentTextFieldMessage(value = message, onChange = {message = it})
         }
     }
 }
 @Preview
 @Composable
-private fun ScreenChatPreview() {
-    ConfchatTheme {
-        ScreenChat(emptyList())
-    }
+fun ScreenChatPreview() {
+    ScreenChat(
+        buildList {
+            this.add(Message("d","teste"))
+            this.add(Message("","teasete"))
+        },
+        ContactViewModel("d","","Teste","teste",2,true,false),
+        rememberNavController())
 }

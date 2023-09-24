@@ -4,6 +4,8 @@ import br.com.confchat.mobile.veiwmodel.model.Login
 import br.com.confchat.mobile.veiwmodel.model.Register
 
 object Route {
+    val Chat: String = "Chat/{contactId}"
+    val Contact: String = "Contact"
     val VerificationCode = "VerificationCode"
     val BirthDay: String = "BirthDay"
     val Logup: String = "Logup"

@@ -1,6 +1,7 @@
 package br.com.confchat.mobile.view.componets
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,8 +23,9 @@ import androidx.compose.ui.unit.sp
 import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
 
 @Composable
-fun ComponentItemListContact(it:ContactViewModel) {
-    ComponentItemList{
+fun ComponentItemListContact(it:ContactViewModel,onClinck:()->Unit) {
+
+    ComponentItemList(modifier = Modifier.clickable { onClinck() }){
         ComponentImageContact(it.urlImg)
         Spacer(modifier = Modifier.width(16.dp))
         Column (modifier = Modifier.weight(1f)) {
@@ -34,7 +36,10 @@ fun ComponentItemListContact(it:ContactViewModel) {
             Icon(imageVector = Icons.Default.Lock, contentDescription = null)
         }
         if(it.coutNewsMessage>0){
-            Box(modifier = Modifier.size(24.dp).clip(CircleShape).background(Color.Green),
+            Box(modifier = Modifier
+                .size(24.dp)
+                .clip(CircleShape)
+                .background(Color.Green),
                 contentAlignment = Alignment.Center){
                 Text(text = it.coutNewsMessage.toString(), fontSize = 10.sp)
             }
@@ -45,5 +50,7 @@ fun ComponentItemListContact(it:ContactViewModel) {
 @Preview
 @Composable
 fun ComponentItemListContactPreview() {
-    ComponentItemListContact(ContactViewModel("","teste","teste",2,true,true))
+    ComponentItemListContact(ContactViewModel("id","","teste","teste",2,true,true)){
+
+    }
 }

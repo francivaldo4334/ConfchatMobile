@@ -13,7 +13,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ComponentItemList(modifier: Modifier = Modifier,content:@Composable RowScope.() -> Unit) {
-    Row (modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),content = content,
+    Row (
+        modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+        content = content,
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically)
 }

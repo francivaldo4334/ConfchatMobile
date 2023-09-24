@@ -6,6 +6,8 @@ import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
 
 fun ContactApi.toViewModel():ContactViewModel{
     return ContactViewModel(
+        chatId = this.chatId,
+        id = this.userId,
         urlImg = this.urlImage?:"",
         name = this.name,
         previewMessage = this.previewMessage,

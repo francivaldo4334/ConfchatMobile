@@ -6,6 +6,7 @@ import br.com.confchat.mobile.data.network.dto.LoginDto
 import br.com.confchat.mobile.data.network.dto.RegisterDto
 import br.com.confchat.mobile.data.network.response.ContactApi
 import br.com.confchat.mobile.data.network.response.DeviceApi
+import br.com.confchat.mobile.data.network.response.MessageApi
 import br.com.confchat.mobile.data.network.response.ResponseApi
 import br.com.confchat.mobile.data.network.response.UpdateToken
 import retrofit2.Call
@@ -32,4 +33,6 @@ interface ApiConfchatService {
     fun send(it:ChatSendDto):Call<ResponseApi<String>>
     @GET("chat/list-contact")
     fun listContacts(@Query("page") page:Int = 0,@Query("size") size: Int = 10):Call<List<ContactApi>>
+    @GET("chat/message-by-chat")
+    fun listMessage(@Query("chatId") chatId:Int,@Query("page") page:Int = 0,@Query("size") size:Int = 10):Call<List<MessageApi>>
 }
