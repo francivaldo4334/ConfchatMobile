@@ -11,6 +11,8 @@ import br.com.confchat.mobile.domain.model.toDto
 import br.com.confchat.mobile.veiwmodel.model.Login
 import br.com.confchat.mobile.veiwmodel.model.Register
 import br.com.confchat.mobile.view.constants.AuthDoc
+import java.util.Calendar
+import java.util.Date
 
 class AuthDomainRepository constructor(
     private val auth: IAuthApiRepository,
@@ -34,9 +36,12 @@ class AuthDomainRepository constructor(
         if(lsToken.size < 2)
             return false
         MyConstants.TOKEN = lsToken[0]
-        MyConstants.TOKEN_UPDATE = lsToken[1]
         sharedEdit?.putString(MyConstants.TOKEN_LOGIN_DATA,lsToken[0])
-        sharedEdit?.putString(MyConstants.TOKEN_UPDATE_DATA,lsToken[1])
+        if(lsToken.size > 1){
+            MyConstants.TOKEN_UPDATE = lsToken[1]
+            sharedEdit?.putString(MyConstants.TOKEN_UPDATE_DATA, lsToken[1])
+        }
+        sharedEdit?.putLong(MyConstants.LOGIN_AT,Date().time)
         sharedEdit?.apply()
         return true
     }
@@ -70,6 +75,7 @@ class AuthDomainRepository constructor(
         var result = auth.UpdateToken(tokenUpdate)
         when(result.status){
             200 ->{
+                user.getMe()
                 saveTokens(result)
                 return true
             }
@@ -99,12 +105,28 @@ class AuthDomainRepository constructor(
         sharedEdit?.remove(MyConstants.TOKEN_LOGIN_DATA)
         sharedEdit?.apply()
     }
+    public fun checkDateUpdateToken(long:Long):Boolean{
+        val calendar = Calendar.getInstance()
+        calendar.time = Date(long)
+        calendar.add(Calendar.DAY_OF_MONTH,25)
 
+        val dateLoginAt = calendar.time
+        val dateNow = Date()
+        if(dateNow.after(dateLoginAt)){
+            return false
+        }
+        return true
+    }
     private fun checkTokenValid():Boolean{
+        val longLoginAt = shared?.getLong(MyConstants.LOGIN_AT,0L)?:0L
+        if(!checkDateUpdateToken(longLoginAt)){
+            var result = updateToken(MyConstants.TOKEN_UPDATE)
+            return result
+        }
         var result = user.getMe()
         when(result.status){
             200 ->{
-                //TODO:Save data and load cache
+                loadCacheUserMe()
                 return true
             }
 -            403 ->{

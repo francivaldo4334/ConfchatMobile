@@ -32,6 +32,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object StanceModule {
+    public var urlTest = ""
     private val authInterceptor = Interceptor{chain->
         val request = chain.request();
         val newRequest =
@@ -54,9 +55,9 @@ object StanceModule {
     @Provides
     @Singleton
     fun getRetrofit(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context?
     ): ApiConfchatService = Retrofit.Builder()
-        .baseUrl(context.getString(R.string.base_url))
+        .baseUrl(context?.getString(R.string.base_url)?:urlTest)
         .client(getClient())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
