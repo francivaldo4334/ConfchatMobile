@@ -1,6 +1,7 @@
 package br.com.confchat.mobile.di
 
 import android.content.Context
+import br.com.confchat.mobile.R
 import br.com.confchat.mobile.common.MyConstants
 import br.com.confchat.mobile.data.network.repository.AuthApiRepository
 import br.com.confchat.mobile.data.network.repository.ChatApiRepository
@@ -25,13 +26,12 @@ import org.intellij.lang.annotations.PrintFormat
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object StanceModule {
-    private val BASE_URL="http://api.confchat.com.br/"
-//    private val BASE_URL="http://192.168.0.9:8080/"
     private val authInterceptor = Interceptor{chain->
         val request = chain.request();
         val newRequest =
@@ -49,12 +49,14 @@ object StanceModule {
         chain.proceed(newRequest)
     }
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY // Nível de logging: BASIC, HEADERS, BODY
+        level = HttpLoggingInterceptor.Level.BODY
     }
     @Provides
     @Singleton
-    fun getRetrofit(): ApiConfchatService = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+    fun getRetrofit(
+        @ApplicationContext context: Context
+    ): ApiConfchatService = Retrofit.Builder()
+        .baseUrl(context.getString(R.string.base_url))
         .client(getClient())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
