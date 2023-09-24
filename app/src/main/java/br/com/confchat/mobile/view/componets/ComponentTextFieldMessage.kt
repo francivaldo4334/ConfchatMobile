@@ -16,7 +16,8 @@ import br.com.confchat.mobile.view.enums.TextFieldType
 @Composable
 fun ComponentTextFieldMessage(
     value:String,
-    onChange:(String)->Unit
+    onChange:(String)->Unit,
+    onSend:()->Unit
 ) {
     Row(Modifier.fillMaxWidth()) {
         ComponentTextField1(
@@ -28,7 +29,7 @@ fun ComponentTextFieldMessage(
         IconButton(onClick = { /*TODO*/ }) {
             Icon(imageVector = Icons.Default.Create,contentDescription = null)
         }
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = onSend) {
             Icon(imageVector = Icons.Default.Send,contentDescription = null)
         }
     }
@@ -37,5 +38,5 @@ fun ComponentTextFieldMessage(
 @Preview
 @Composable
 fun ComponentTextFieldMessagePreview() {
-    ComponentTextFieldMessage(""){}
+    ComponentTextFieldMessage("",{}){}
 }

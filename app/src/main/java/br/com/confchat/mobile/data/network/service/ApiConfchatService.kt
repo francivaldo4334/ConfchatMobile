@@ -30,7 +30,7 @@ interface ApiConfchatService {
     @GET("user/me")
     fun getMe():Call<ResponseApi<String>>
     @POST("chat/send")
-    fun send(it:ChatSendDto):Call<ResponseApi<String>>
+    fun send(@Body it:ChatSendDto):Call<ResponseApi<String>>
     @GET("chat/list-contact")
     fun listContacts(@Query("page") page:Int = 0,@Query("size") size: Int = 10):Call<List<ContactApi>>
     @GET("chat/message-by-chat")

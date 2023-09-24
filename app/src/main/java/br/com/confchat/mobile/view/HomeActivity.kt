@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -32,7 +33,7 @@ class HomeActivity : ComponentActivity() {
             val viewModel : ChatViewModel = hiltViewModel()
             val viewModelAuth : AuthViewModel = hiltViewModel()
             val listContact : List<ContactViewModel> by viewModel.listContact.collectAsState()
-            val listMessage : List<Message> by viewModel.listMessage.collectAsState()
+//            val listMessage : List<Message> by viewModel.listMessage.collectAsState()
             viewModel.loadContacts()
             ConfchatTheme {
                 val navController = rememberNavController()
@@ -49,9 +50,10 @@ class HomeActivity : ComponentActivity() {
                         composable(Route.Chat){
                             val contactId = it.arguments?.getString("contactId")?:""
                             ScreenChat(
-                                listMessage = listMessage,
+//                                listMessage = listMessage,
                                 contact = listContact.first { it.id == contactId },
-                                navController = navController
+                                navController = navController,
+                                chatViewModel = viewModel
                             )
                         }
                     }
