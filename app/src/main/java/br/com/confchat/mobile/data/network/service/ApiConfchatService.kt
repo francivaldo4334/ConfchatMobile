@@ -4,6 +4,7 @@ import br.com.confchat.mobile.data.network.dto.ChatSendDto
 import br.com.confchat.mobile.data.network.dto.CheckVerificationCodeDto
 import br.com.confchat.mobile.data.network.dto.LoginDto
 import br.com.confchat.mobile.data.network.dto.RegisterDto
+import br.com.confchat.mobile.data.network.response.ContactApi
 import br.com.confchat.mobile.data.network.response.DeviceApi
 import br.com.confchat.mobile.data.network.response.ResponseApi
 import br.com.confchat.mobile.data.network.response.UpdateToken
@@ -12,6 +13,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Query
 
 interface ApiConfchatService {
     @POST("auth/login")
@@ -28,4 +30,6 @@ interface ApiConfchatService {
     fun getMe():Call<ResponseApi<String>>
     @POST("chat/send")
     fun send(it:ChatSendDto):Call<ResponseApi<String>>
+    @GET("chat/list-contact")
+    fun listContacts(@Query("page") page:Int = 0,@Query("size") size: Int = 10):Call<List<ContactApi>>
 }

@@ -7,4 +7,6 @@ object MyConstants{
     val LOGIN_AT = "LOGIN_AT"
     val TOKEN_LOGIN_DATA = "TOKEN_LOGIN"
     val AUTENTICATION_DATA = "AUTENTICATION"
+    var newMessages = listOf<Pair<String,String>>()
+    var contactPage = 0;
 }

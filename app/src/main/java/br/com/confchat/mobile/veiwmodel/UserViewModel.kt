@@ -27,7 +27,6 @@ class UserViewModel
 constructor(
     private val user : IUserDomainRepository
 ) : ViewModel(){
-    val listContact = MutableStateFlow(emptyList<ContactViewModel>())
     var listDevice = MutableStateFlow(emptyList<Device>())
     fun getListDevice() {
         viewModelScope.launch(Dispatchers.IO) {

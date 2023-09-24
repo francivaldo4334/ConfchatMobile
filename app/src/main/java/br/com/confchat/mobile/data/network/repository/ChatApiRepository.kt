@@ -1,6 +1,7 @@
 package br.com.confchat.mobile.data.network.repository
 
 import br.com.confchat.mobile.data.network.dto.ChatSendDto
+import br.com.confchat.mobile.data.network.response.ContactApi
 import br.com.confchat.mobile.data.network.response.ResponseApi
 import br.com.confchat.mobile.data.network.service.ApiConfchatService
 
@@ -16,6 +17,20 @@ class ChatApiRepository constructor(private val api: ApiConfchatService) : IChat
         }
         catch (e:Exception){
             return ResponseApi("Error",503)
+        }
+    }
+
+    override fun listContact(page: Int): List<ContactApi> {
+        val call = api.listContacts(page = page)
+        try {
+            val response = call.execute()
+            if(response.isSuccessful){
+                return response.body()!!
+            }
+            return response.body()!!
+        }
+        catch (e : Exception){
+            return emptyList()
         }
     }
 }
