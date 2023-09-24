@@ -21,7 +21,7 @@ interface ApiConfchatService {
     @POST("auth/update-login")
     fun updateLogin(@Body it: UpdateToken):Call<ResponseApi<String>>
     @PUT("auth/check-verification-code")
-    fun checkVerificationCode(it:CheckVerificationCodeDto):Call<ResponseApi<String>>
+    fun checkVerificationCode(@Body it:CheckVerificationCodeDto):Call<ResponseApi<String>>
     @GET("user/loged-devices")
     fun getListDevice(): Call<List<DeviceApi>>
     @GET("user/me")

@@ -15,10 +15,10 @@ import br.com.confchat.mobile.view.constants.AuthDoc
 class AuthDomainRepository constructor(
     private val auth: IAuthApiRepository,
     private val user: IUserApiRepository,
-    private val context : Context
+    private val context : Context?
 ) : IAuthDomainRepository {
-    val shared = context.getSharedPreferences(MyConstants.AUTENTICATION_DATA,Context.MODE_PRIVATE)
-    val sharedEdit = shared.edit()
+    val shared = context?.getSharedPreferences(MyConstants.AUTENTICATION_DATA,Context.MODE_PRIVATE)
+    val sharedEdit = shared?.edit()
     override fun login(login: Login): Pair<Boolean, String> {
         val deviceName = getDeviceName()
         login.deviceName = deviceName
@@ -35,9 +35,9 @@ class AuthDomainRepository constructor(
             return false
         MyConstants.TOKEN = lsToken[0]
         MyConstants.TOKEN_UPDATE = lsToken[1]
-        sharedEdit.putString(MyConstants.TOKEN_LOGIN_DATA,lsToken[0])
-        sharedEdit.putString(MyConstants.TOKEN_UPDATE_DATA,lsToken[1])
-        sharedEdit.apply()
+        sharedEdit?.putString(MyConstants.TOKEN_LOGIN_DATA,lsToken[0])
+        sharedEdit?.putString(MyConstants.TOKEN_UPDATE_DATA,lsToken[1])
+        sharedEdit?.apply()
         return true
     }
     fun getDeviceName(): String {
@@ -57,7 +57,7 @@ class AuthDomainRepository constructor(
     }
 
     override fun CheckLogin(): Boolean {
-        MyConstants.TOKEN = shared.getString(MyConstants.TOKEN_LOGIN_DATA,"")!!
+        MyConstants.TOKEN = shared?.getString(MyConstants.TOKEN_LOGIN_DATA,"")!!
         MyConstants.TOKEN_UPDATE = shared.getString(MyConstants.TOKEN_LOGIN_DATA,"")!!
         if(MyConstants.TOKEN.isNotEmpty()){
             var result = checkTokenValid()
@@ -84,22 +84,20 @@ class AuthDomainRepository constructor(
     }
 
     override fun checkVerificationCode(code:String): Boolean {
-
-        val response = auth.checkVerificationCode(
-            CheckVerificationCodeDto(
-                code = code,
-                email = AuthDoc.register.email
-            )
+        var check = CheckVerificationCodeDto(
+            code = code,
+            email = AuthDoc.register.email
         )
+        val response = auth.checkVerificationCode(check)
         if(response.status == 200)
             return true
         return false
     }
 
     override fun logout() {
-        sharedEdit.remove(MyConstants.TOKEN_UPDATE_DATA)
-        sharedEdit.remove(MyConstants.TOKEN_LOGIN_DATA)
-        sharedEdit.apply()
+        sharedEdit?.remove(MyConstants.TOKEN_UPDATE_DATA)
+        sharedEdit?.remove(MyConstants.TOKEN_LOGIN_DATA)
+        sharedEdit?.apply()
     }
 
     private fun checkTokenValid():Boolean{

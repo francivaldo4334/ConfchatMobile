@@ -2,7 +2,9 @@ package br.com.confchat.mobile.view.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -37,6 +40,7 @@ fun ScreenVerificationCode(navController: NavController,viewModel: AuthViewModel
             ComponentTextField1(value = code, onChange = {code = it})
         }
         item {
+            Spacer(modifier = Modifier.height(16.dp))
             ComponentButton1(text = "Confirmar") {
                 viewModel.checkVerificationCode(code){
                     if(it)
