@@ -28,6 +28,7 @@ import br.com.confchat.mobile.view.constants.AuthDoc
 import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.enums.IconsLayout
 import br.com.confchat.mobile.view.enums.TextFieldType
+import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 
 @Composable
 fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hiltViewModel()) {
@@ -68,5 +69,7 @@ fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hilt
 @Preview
 @Composable
 private fun ScreenBirthDayPreview() {
-    ScreenBirthDay(rememberNavController())
+    ConfchatTheme {
+        ScreenBirthDay(rememberNavController())
+    }
 }

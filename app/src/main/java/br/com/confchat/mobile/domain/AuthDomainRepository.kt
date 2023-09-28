@@ -129,7 +129,7 @@ class AuthDomainRepository constructor(
                 loadCacheUserMe()
                 return true
             }
--            403 ->{
+            403 ->{
                 var result = updateToken(MyConstants.TOKEN_UPDATE)
                 return result
             }

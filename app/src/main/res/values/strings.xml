@@ -11,4 +11,9 @@
     <string name="continuar">Continuar</string>
     <string name="mensagens">Mensagens</string>
     <string name="base_url">http://api.confchat.com.br/</string>
+    <string name="seu_email_gmail_com">seu.email@gmail.com</string>
+    <string name="n_o_tem_uma_conta">"Não tem uma conta? "</string>
+    <string name="criar_conta">Criar conta</string>
+    <string name="j_tem_uma_conta">"Já tem uma conta? "</string>
+    <string name="entrar">Entrar</string>
 </resources>

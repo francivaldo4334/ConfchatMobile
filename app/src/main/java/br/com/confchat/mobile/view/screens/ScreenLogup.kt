@@ -3,10 +3,14 @@ package br.com.confchat.mobile.view.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -27,6 +32,7 @@ import br.com.confchat.mobile.view.Components.ComponentIcon1
 import br.com.confchat.mobile.view.Components.ComponentText1
 import br.com.confchat.mobile.view.Components.ComponentTextField1
 import br.com.confchat.mobile.view.Components.ComponentTextLink1
+import br.com.confchat.mobile.view.componets.ComponentTextLinkLogin
 import br.com.confchat.mobile.view.constants.AuthDoc
 import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.enums.IconsLayout
@@ -58,7 +64,19 @@ fun ScreenLogup(navController: NavController,viewModel: AuthViewModel = hiltView
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         item {
-            ComponentIcon1(IconsLayout.Logo)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            ) {
+                ComponentIcon1(IconsLayout.Logo)
+                Text(
+                    text = stringResource(id = R.string.app_name),
+                    fontSize = 18.sp
+                )
+            }
         }
         item {
             Column(
@@ -101,7 +119,7 @@ fun ScreenLogup(navController: NavController,viewModel: AuthViewModel = hiltView
             }
         }
         item {
-            ComponentTextLink1 {
+            ComponentTextLinkLogin {
                 navController.popBackStack()
             }
         }

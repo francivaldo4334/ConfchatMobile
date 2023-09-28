@@ -44,7 +44,6 @@ import br.com.confchat.mobile.view.enums.ChatDirection
 
 @Composable
 fun ScreenChat(
-//    listMessage:List<Message>,
     contact:ContactViewModel,
     navController: NavController,
     chatViewModel: ChatViewModel = hiltViewModel()
@@ -82,9 +81,9 @@ fun ScreenChat(
             }) {
                 Icon(imageVector = Icons.Default.Refresh, contentDescription = null)
             }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Default.Settings, contentDescription = null)
-            }
+//            IconButton(onClick = { /*TODO*/ }) {
+//                Icon(imageVector = Icons.Default.Settings, contentDescription = null)
+//            }
         }
         LazyColumn(
             Modifier
