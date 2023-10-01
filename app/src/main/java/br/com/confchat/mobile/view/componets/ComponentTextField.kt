@@ -1,5 +1,6 @@
 package br.com.confchat.mobile.view.Components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +13,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Lock
@@ -32,7 +32,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.confchat.mobile.R
-import br.com.confchat.mobile.view.componets.transformations.DateTransformation
 import br.com.confchat.mobile.view.enums.TextFieldType
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 
@@ -210,26 +209,47 @@ private fun ConfirmPassword(value:String,onChange:(String)->Unit) {
 }
 @Composable
 private fun Date(value:String,onChange:(String)->Unit) {
-    None(
-        value = value,
-        onChange = {
-            if(it.length<=8)
-                onChange(it)
-        },
-        keyboardType = KeyboardType.Number,
-        visualTransformation = DateTransformation(),
-        beforeIcon = {
-            Icon(
-                imageVector = Icons.Default.DateRange,
-                contentDescription = null
+    val card : @Composable (Int,String,String)->Unit = { init,value,default ->
+        val gerarStringComPadrao : (String,String)->String = {prefixo,padrao->
+            val caracteresAleatorios = padrao.substring(prefixo.length)
+            "$prefixo$caracteresAleatorios"
+        }
+        Card(
+            shape = RoundedCornerShape(4.dp)
+        ) {
+            Text(
+                text =
+                if(init >= 0 && init < value.length){
+                    val subString = value.substring(init,if(value.length <  (init + default.length)) value.length else default.length + init).toString()
+                    gerarStringComPadrao(subString,default)
+                }
+                else{
+                    default
+                },
+                modifier = Modifier.padding(4.dp),
+                fontSize = 24.sp
             )
+        }
+    }
+    BasicTextField(
+        value = value,
+        onValueChange = onChange,
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+        decorationBox = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                card(0,value,"DD")
+                card(2,value,"MM")
+                card(4,value,"AAAA")
+            }
         }
     )
 }
 @Preview
 @Composable
 private fun ComponentTextField1Preview() {
-//    ComponentTextField1("test", type = TextFieldType.Password){}
     ConfchatTheme {
         Date(""){}
     }

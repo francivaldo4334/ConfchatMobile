@@ -2,8 +2,14 @@ package br.com.confchat.mobile.view.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -41,10 +49,24 @@ fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hilt
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        item{
-            ComponentIcon1(IconsLayout.Logo)
+        item {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            ) {
+                ComponentIcon1(IconsLayout.Logo)
+                Text(
+                    text = stringResource(id = R.string.app_name),
+                    fontSize = 18.sp
+                )
+            }
         }
         item {
+            Text(text = stringResource(R.string.informe_sua_data_de_nacimento), fontSize = 14.sp)
+            Spacer(modifier = Modifier.height(16.dp))
             ComponentTextField1(value = birthDay, onChange = {birthDay = it}, type = TextFieldType.Date)
         }
         item {

@@ -80,27 +80,28 @@ fun ScreenLogin(navController: NavController,viewModel:AuthViewModel = hiltViewM
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text(text = stringResource(R.string.login), fontSize = 18.sp, modifier = Modifier.padding(start = 16.dp))
+                Text(text = stringResource(R.string.login), fontSize = 18.sp, modifier = Modifier.padding(start = 32.dp))
                 ComponentTextField1(value = loginOrEmai, onChange = {loginOrEmai = it}, type = TextFieldType.Email)
                 ComponentTextField1(value = password, onChange = {password = it}, type = TextFieldType.Password)
+                Spacer(modifier = Modifier.height(16.dp))
+                ComponentButton1(text = stringResource(R.string.logar)) {
+                    AuthDoc.login.loginOrEmail = loginOrEmai
+                    AuthDoc.login.password = password
+                    viewModel.login(){
+                        if(it){
+                            context.startActivity(Intent(context, HomeActivity::class.java))
+                            context.finish()
+                        }
+                        else{
+                            Toast.makeText(context,"Error",Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
             }
         }
         item {
             ComponentTextLinkLogout {
                 navController.navigate(Route.Logup)
-            }
-            ComponentButton1(text = stringResource(R.string.logar)) {
-                AuthDoc.login.loginOrEmail = loginOrEmai
-                AuthDoc.login.password = password
-                viewModel.login(){
-                    if(it){
-                        context.startActivity(Intent(context, HomeActivity::class.java))
-                        context.finish()
-                    }
-                    else{
-                        Toast.makeText(context,"Error",Toast.LENGTH_LONG).show()
-                    }
-                }
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -111,6 +112,6 @@ fun ScreenLogin(navController: NavController,viewModel:AuthViewModel = hiltViewM
 @Composable
 private fun ScreenLoginPreview() {
     ConfchatTheme {
-        ScreenLogin(rememberNavController())
+        ScreenLogin(rememberNavController(), hiltViewModel())
     }
 }

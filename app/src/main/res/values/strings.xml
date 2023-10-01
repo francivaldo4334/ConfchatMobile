@@ -2,7 +2,7 @@
     <string name="app_name">Confchat</string>
     <string name="logar">Logar</string>
     <string name="cadastrar">Cadastrar</string>
-    <string name="logup">Logup</string>
+    <string name="logup">Cadastro</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="nome_de_usurious">Nome de usurious</string>
@@ -16,4 +16,5 @@
     <string name="criar_conta">Criar conta</string>
     <string name="j_tem_uma_conta">"Já tem uma conta? "</string>
     <string name="entrar">Entrar</string>
+    <string name="informe_sua_data_de_nacimento">Informe sua data de nacimento.</string>
 </resources>
