@@ -62,4 +62,17 @@ class AuthApiRepository constructor(private val api: ApiConfchatService): IAuthA
             return ResponseApi("Error",503)
         }
     }
+
+    override fun resendVerificationCode(it: String): ResponseApi<String> {
+        val call = api.resendVerificationCode(it)
+        try {
+            val response = call.execute()
+            if(response.isSuccessful)
+                return response.body()!!
+            return response.body()!!
+        }
+        catch (e : Exception){
+            return ResponseApi("Error",503)
+        }
+    }
 }

@@ -79,7 +79,7 @@ fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hilt
             ComponentTextField1(value = birthDay, onChange = {birthDay = it}, type = TextFieldType.Date)
         }
         item {
-            ComponentButton1(text = stringResource(R.string.continuar)) {
+            ComponentButton1(text = stringResource(R.string.continuar_next)) {
                 AuthDoc.register.birthDay = birthDay
                 viewModel.register(){isSuccess,messge ->
                     if(isSuccess){
@@ -93,9 +93,6 @@ fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hilt
             Spacer(modifier = Modifier.height(16.dp))
             TextButton(onClick = { navController.popBackStack() }) {
                 Text(text = stringResource(R.string.voltar))
-            }
-            ComponentTextLink1 {
-                navController.popBackStack()
             }
         }
     }

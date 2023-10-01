@@ -14,4 +14,5 @@ interface IAuthApiRepository {
     fun Register(it: RegisterDto): ResponseApi<String>
     fun UpdateToken(it:String): ResponseApi<String>
     fun checkVerificationCode(it:CheckVerificationCodeDto): ResponseApi<String>
+    fun resendVerificationCode(it:String):ResponseApi<String>
 }

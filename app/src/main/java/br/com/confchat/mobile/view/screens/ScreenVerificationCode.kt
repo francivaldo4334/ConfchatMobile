@@ -1,11 +1,22 @@
 package br.com.confchat.mobile.view.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,16 +25,30 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import br.com.confchat.mobile.R
 import br.com.confchat.mobile.domain.IAuthDomainRepository
 import br.com.confchat.mobile.veiwmodel.AuthViewModel
 import br.com.confchat.mobile.view.Components.ComponentButton1
+import br.com.confchat.mobile.view.Components.ComponentIcon1
 import br.com.confchat.mobile.view.Components.ComponentTextField1
+import br.com.confchat.mobile.view.Components.ComponentTextLink1
+import br.com.confchat.mobile.view.constants.AuthDoc
 import br.com.confchat.mobile.view.constants.Route
+import br.com.confchat.mobile.view.enums.IconsLayout
+import br.com.confchat.mobile.view.enums.TextFieldType
+import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 
 @Composable
 fun ScreenVerificationCode(navController: NavController,viewModel: AuthViewModel = hiltViewModel()) {
@@ -32,22 +57,69 @@ fun ScreenVerificationCode(navController: NavController,viewModel: AuthViewModel
     }
     val context = LocalContext.current
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
+        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
+        item {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            ) {
+                ComponentIcon1(IconsLayout.Logo)
+                Text(
+                    text = stringResource(id = R.string.app_name),
+                    fontSize = 18.sp
+                )
+            }
+        }
         item{
-            ComponentTextField1(value = code, onChange = {code = it})
+            Icon(
+                imageVector = Icons.Outlined.Email,
+                contentDescription = null,
+                modifier = Modifier.size(56.dp))
+            Spacer(modifier = Modifier.height(32.dp))
+            Text(text = stringResource(R.string.inserir_c_digo_de_verifica_o), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+            var bs = buildAnnotatedString {
+                append("Insira o código que enviamos para o seu\n email ")
+                withStyle(SpanStyle(fontWeight = FontWeight.Bold)){
+                    append("#${AuthDoc.register.email}")
+                }
+            }
+            Text(
+                text = bs,
+                fontSize = 10.sp,
+                lineHeight = 12.sp,
+                textAlign = TextAlign.Center
+            )
+            TextButton(onClick = {
+                viewModel.resendVerificationCode{
+
+                }
+            }) {
+                Text(text = stringResource(R.string.reenviar_c_digo))
+            }
+            Spacer(modifier = Modifier.height(32.dp))
+            ComponentTextField1(value = code, onChange = {code = it}, type = TextFieldType.Code)
         }
         item {
-            Spacer(modifier = Modifier.height(16.dp))
-            ComponentButton1(text = "Confirmar") {
+            Spacer(modifier = Modifier.height(32.dp))
+            ComponentButton1(text = stringResource(R.string.confirmar)) {
                 viewModel.checkVerificationCode(code){
                     if(it)
                         navController.navigate(Route.Login){popUpTo(0)}
                     else
                         Toast.makeText(context,"Codigo invalido",Toast.LENGTH_LONG).show()
                 }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            TextButton(onClick = { navController.popBackStack() }) {
+                Text(text = stringResource(R.string.voltar))
             }
         }
     }
@@ -56,5 +128,8 @@ fun ScreenVerificationCode(navController: NavController,viewModel: AuthViewModel
 @Preview
 @Composable
 private fun ScreenVerificationCodePreview() {
-    ScreenVerificationCode(rememberNavController())
+    AuthDoc.register.email = "teste@teste.com"
+    ConfchatTheme {
+        ScreenVerificationCode(rememberNavController())
+    }
 }

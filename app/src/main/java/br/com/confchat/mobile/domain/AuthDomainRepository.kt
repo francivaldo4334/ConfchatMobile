@@ -105,6 +105,14 @@ class AuthDomainRepository constructor(
         sharedEdit?.remove(MyConstants.TOKEN_LOGIN_DATA)
         sharedEdit?.apply()
     }
+
+    override fun resendVerificationCode(it: String): Boolean {
+        var check = auth.resendVerificationCode(it)
+        if(check.status == 200)
+            return true
+        return false
+    }
+
     public fun checkDateUpdateToken(long:Long):Boolean{
         val calendar = Calendar.getInstance()
         calendar.time = Date(long)

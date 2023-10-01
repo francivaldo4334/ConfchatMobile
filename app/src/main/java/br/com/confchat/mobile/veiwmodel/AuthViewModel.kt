@@ -54,4 +54,13 @@ class AuthViewModel @Inject constructor(private val auth:IAuthDomainRepository):
         auth.logout()
     }
 
+    fun resendVerificationCode(function: (Boolean) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = auth.resendVerificationCode(AuthDoc.register.email)
+            viewModelScope.launch(Dispatchers.Main) {
+                function(response)
+            }
+        }
+    }
+
 }

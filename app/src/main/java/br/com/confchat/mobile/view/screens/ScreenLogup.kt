@@ -127,7 +127,7 @@ fun ScreenLogup(navController: NavController,viewModel: AuthViewModel = hiltView
                     onChange = {confirPassword = it},
                     type = TextFieldType.ConfirmPassword
                 )
-                ComponentButton1(text = stringResource(R.string.cadastrar)) {
+                ComponentButton1(text = stringResource(R.string.continuar_next)) {
                     AuthDoc.register.name = name
                     AuthDoc.register.email = email
                     AuthDoc.register.password = password

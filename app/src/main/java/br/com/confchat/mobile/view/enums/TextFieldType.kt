@@ -7,5 +7,6 @@ enum class TextFieldType {
     Password,
     ConfirmPassword,
     None,
-    Date
+    Date,
+    Code
 }

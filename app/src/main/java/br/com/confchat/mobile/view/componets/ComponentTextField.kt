@@ -56,6 +56,9 @@ fun ComponentTextField1(value:String, type:TextFieldType = TextFieldType.None, m
         TextFieldType.Date ->{
             Date(value = value, onChange = onChange)
         }
+        TextFieldType.Code ->{
+            Code(value = value, onChange = onChange)
+        }
         else -> {
             None(
                 value = value,
@@ -204,6 +207,54 @@ private fun ConfirmPassword(value:String,onChange:(String)->Unit) {
                 imageVector = Icons.Default.Lock,
                 contentDescription = null
             )
+        }
+    )
+}
+@Composable
+private fun Code(value:String,onChange:(String)->Unit) {
+    val card : @Composable (Int,String,String)->Unit = { init,value,default ->
+        val gerarStringComPadrao : (String,String)->String = {prefixo,padrao->
+            val caracteresAleatorios = padrao.substring(prefixo.length)
+            "$prefixo$caracteresAleatorios"
+        }
+        Card(
+            shape = RoundedCornerShape(4.dp),
+            elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background)
+        ) {
+            Text(
+                text =
+                if(init >= 0 && init < value.length){
+                    val subString = value.substring(init,if(value.length <  (init + default.length)) value.length else default.length + init).toString()
+                    gerarStringComPadrao(subString,default)
+                }
+                else{
+                    default
+                },
+                modifier = Modifier.padding(vertical = 4.dp, horizontal = 12.dp),
+                fontSize = 24.sp
+            )
+        }
+    }
+    BasicTextField(
+        value = value,
+        onValueChange = {
+            if(it.length <= 6)
+                onChange(it)
+        },
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+        decorationBox = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                card(0,value," ")
+                card(1,value," ")
+                card(2,value," ")
+                card(3,value," ")
+                card(4,value," ")
+                card(5,value," ")
+            }
         }
     )
 }
