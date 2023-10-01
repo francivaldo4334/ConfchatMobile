@@ -19,10 +19,10 @@ import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 import br.com.confchat.mobile.view.ui.theme.background
 
 @Composable
-fun ComponentButton1(text: String, onClick: () -> Unit) {
+fun ComponentButton1(text: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Button(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 32.dp)
             .height(40.dp),

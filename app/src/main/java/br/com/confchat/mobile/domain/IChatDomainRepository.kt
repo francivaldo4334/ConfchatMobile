@@ -7,4 +7,5 @@ interface IChatDomainRepository {
     fun listContact():List<ContactViewModel>
     fun listMessage(chatId:Int): List<Message>
     fun sendMessage(contactId:String,message:String)
+    fun sendSolicit(it:String)
 }

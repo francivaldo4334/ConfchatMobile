@@ -43,6 +43,7 @@ import br.com.confchat.mobile.view.componets.ComponentImageProfile
 import br.com.confchat.mobile.view.componets.ComponentItemListContact
 import br.com.confchat.mobile.view.componets.ComponentTextFieldSearch
 import br.com.confchat.mobile.view.constants.Route
+import br.com.confchat.mobile.view.dialogs.AddFriendDialog
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 
 @Composable
@@ -57,6 +58,9 @@ fun ScreenContact(
     }
     var expandDropDownMenu by remember{ mutableStateOf(false) }
     val context = LocalContext.current as Activity
+    var openNewFriend by remember{
+        mutableStateOf(false)
+    }
     Box(Modifier.fillMaxSize()){
         LazyColumn(
             modifier = Modifier.fillMaxSize()
@@ -103,11 +107,16 @@ fun ScreenContact(
                 }
             }
         }
-        FloatingActionButton(onClick = { /*TODO*/ },modifier = Modifier
+        FloatingActionButton(onClick = { openNewFriend = true },modifier = Modifier
             .align(Alignment.BottomEnd)
             .padding(bottom = 16.dp, end = 16.dp)) {
             Icon(imageVector = Icons.Default.Add, contentDescription = null)
         }
+    }
+    AddFriendDialog(openNewFriend,{
+        chatViewModel.sendSolicit(it)
+    }){
+        openNewFriend = false
     }
 }
 @Preview

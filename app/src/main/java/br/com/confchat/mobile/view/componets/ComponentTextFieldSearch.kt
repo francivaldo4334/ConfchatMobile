@@ -15,7 +15,7 @@ fun RowScope.ComponentTextFieldSearch(value:String, onChange:(String)->Unit) {
 
 @Preview
 @Composable
-fun ComponentTextFieldSearchPreview() {
+private fun ComponentTextFieldSearchPreview() {
     Row {
         ComponentTextFieldSearch(""){}
     }

@@ -38,15 +38,19 @@ class ChatDomainRepository constructor(private val chat:IChatApiRepository) : IC
         if(response.status != 200) {
             Log.e(this::class.java.simpleName, response.content)
 
-            val client = OkHttpClient()
-            val request : Request = Request
-                .Builder()
-                .put(Gson().toJson(dto).toRequestBody())
-                .headers(Headers.headersOf("Authorization: Bearer ${MyConstants.TOKEN}"))
-                .url("ws://192.168.0.9:8080/ws/connect")
-                .build()
-            val listener = WebSocketService()
-            val ws : WebSocket = client.newWebSocket(request,listener)
+//            val client = OkHttpClient()
+//            val request : Request = Request
+//                .Builder()
+//                .put(Gson().toJson(dto).toRequestBody())
+//                .headers(Headers.headersOf("Authorization: Bearer ${MyConstants.TOKEN}"))
+//                .url("ws://192.168.0.9:8080/ws/connect")
+//                .build()
+//            val listener = WebSocketService()
+//            val ws : WebSocket = client.newWebSocket(request,listener)
         }
+    }
+
+    override fun sendSolicit(it: String) {
+        val response = chat.sendSolict(it)
     }
 }

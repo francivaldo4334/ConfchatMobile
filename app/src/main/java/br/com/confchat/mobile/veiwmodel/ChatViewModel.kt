@@ -2,6 +2,7 @@ package br.com.confchat.mobile.veiwmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.confchat.mobile.common.MyConstants
 import br.com.confchat.mobile.domain.IChatDomainRepository
 import br.com.confchat.mobile.domain.services.WebSocketService
@@ -48,6 +49,11 @@ constructor(
     fun sendMessage(id: String, message: String) {
         viewModelScope.launch(Dispatchers.IO) {
             chat.sendMessage(id,message)
+        }
+    }
+    fun sendSolicit(it:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            chat.sendSolicit(it)
         }
     }
 }

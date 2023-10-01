@@ -11,4 +11,5 @@ interface IChatApiRepository {
     public fun send(it: ChatSendDto): ResponseApi<String>
     public fun listContact(page:Int): List<ContactApi>
     public fun listMessage(chatId:Int,page:Int = 0): List<MessageApi>
+    public fun sendSolict(it:String):ResponseApi<String>
 }

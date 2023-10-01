@@ -47,4 +47,18 @@ class ChatApiRepository constructor(private val api: ApiConfchatService) : IChat
             return emptyList()
         }
     }
+
+    override fun sendSolict(it: String): ResponseApi<String> {
+        val call = api.sendSolicitation(it)
+        try {
+            val response = call.execute()
+            if(response.isSuccessful){
+                return response.body()!!
+            }
+            return response.body()!!
+        }
+        catch (e:Exception){
+            return ResponseApi("Error",503)
+        }
+    }
 }
