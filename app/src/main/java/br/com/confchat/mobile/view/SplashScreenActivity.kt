@@ -8,6 +8,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import br.com.confchat.mobile.veiwmodel.AuthViewModel
+import br.com.confchat.mobile.view.screens.SplashScreen
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -32,7 +33,7 @@ class SplashScreenActivity : ComponentActivity() {
             })
             ConfchatTheme {
                 Surface {
-
+                    SplashScreen()
                 }
             }
         }
