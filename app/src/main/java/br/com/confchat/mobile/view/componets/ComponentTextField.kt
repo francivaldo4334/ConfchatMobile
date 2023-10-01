@@ -215,7 +215,9 @@ private fun Date(value:String,onChange:(String)->Unit) {
             "$prefixo$caracteresAleatorios"
         }
         Card(
-            shape = RoundedCornerShape(4.dp)
+            shape = RoundedCornerShape(4.dp),
+            elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background)
         ) {
             Text(
                 text =
@@ -233,7 +235,10 @@ private fun Date(value:String,onChange:(String)->Unit) {
     }
     BasicTextField(
         value = value,
-        onValueChange = onChange,
+        onValueChange = {
+            if(it.length <= 8)
+                onChange(it)
+        },
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
         decorationBox = {
             Row(

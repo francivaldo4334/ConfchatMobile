@@ -2,13 +2,19 @@ package br.com.confchat.mobile.view.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -64,18 +70,30 @@ fun ScreenLogup(navController: NavController,viewModel: AuthViewModel = hiltView
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         item {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 16.dp)
-            ) {
-                ComponentIcon1(IconsLayout.Logo)
-                Text(
-                    text = stringResource(id = R.string.app_name),
-                    fontSize = 18.sp
-                )
+                    .padding(top = 16.dp),
+                contentAlignment = Alignment.CenterStart
+            ){
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    ComponentIcon1(IconsLayout.Logo)
+                    Text(
+                        text = stringResource(id = R.string.app_name),
+                        fontSize = 18.sp
+                    )
+                }
+                IconButton(
+                    onClick = {navController.popBackStack()},
+                    modifier = Modifier.size(40.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                }
             }
         }
         item {

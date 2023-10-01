@@ -16,5 +16,7 @@
     <string name="criar_conta">Criar conta</string>
     <string name="j_tem_uma_conta">"Já tem uma conta? "</string>
     <string name="entrar">Entrar</string>
-    <string name="informe_sua_data_de_nacimento">Informe sua data de nacimento.</string>
+    <string name="voltar"><![CDATA[< Voltar]]></string>
+    <string name="adicione_sua_data_de_nascimento">Adicione sua data de nascimento</string>
+    <string name="n_o_ser_mostrado_no_seu_perfil_p_blico">Não será mostrado no seu\n perfil público</string>
 </resources>
