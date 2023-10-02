@@ -114,11 +114,6 @@ fun ScreenContact(
                 }
             }
         }
-//        FloatingActionButton(onClick = { openNewFriend = true },modifier = Modifier
-//            .align(Alignment.BottomEnd)
-//            .padding(bottom = 16.dp, end = 16.dp)) {
-//            Icon(imageVector = Icons.Default.Add, contentDescription = null)
-//        }
     }
     AddFriendDialog(openNewFriend,{
         chatViewModel.sendSolicit(it)
