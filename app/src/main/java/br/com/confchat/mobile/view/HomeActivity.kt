@@ -33,7 +33,6 @@ class HomeActivity : ComponentActivity() {
             val viewModel : ChatViewModel = hiltViewModel()
             val viewModelAuth : AuthViewModel = hiltViewModel()
             val listContact : List<ContactViewModel> by viewModel.listContact.collectAsState()
-//            val listMessage : List<Message> by viewModel.listMessage.collectAsState()
             viewModel.loadContacts()
             ConfchatTheme {
                 val navController = rememberNavController()
@@ -50,7 +49,6 @@ class HomeActivity : ComponentActivity() {
                         composable(Route.Chat){
                             val contactId = it.arguments?.getString("contactId")?:""
                             ScreenChat(
-//                                listMessage = listMessage,
                                 contact = listContact.first { it.id == contactId },
                                 navController = navController,
                                 chatViewModel = viewModel
