@@ -2,13 +2,20 @@ package br.com.confchat.mobile.view.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -47,6 +54,7 @@ fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hilt
         mutableStateOf("")
     }
     val context = LocalContext.current as AuthenticationActivity
+    var isLoad by remember{ mutableStateOf(false) }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
@@ -68,6 +76,8 @@ fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hilt
             }
         }
         item {
+            Icon(imageVector = Icons.Outlined.DateRange,contentDescription = null,modifier = Modifier.size(56.dp))
+            Spacer(modifier = Modifier.height(32.dp))
             Text(text = stringResource(R.string.adicione_sua_data_de_nascimento), fontSize = 14.sp, fontWeight = FontWeight.Bold)
             Text(
                 text = stringResource(R.string.n_o_ser_mostrado_no_seu_perfil_p_blico).replace("\\n","\n"),
@@ -79,14 +89,23 @@ fun ScreenBirthDay(navController: NavController, viewModel: AuthViewModel = hilt
             ComponentTextField1(value = birthDay, onChange = {birthDay = it}, type = TextFieldType.Date)
         }
         item {
-            ComponentButton1(text = stringResource(R.string.continuar_next)) {
-                AuthDoc.register.birthDay = birthDay
-                viewModel.register(){isSuccess,messge ->
-                    if(isSuccess){
-                        navController.navigate(Route.VerificationCode)
-                    }
-                    else{
-                        Toast.makeText(context,messge,Toast.LENGTH_LONG).show()
+            if(isLoad){
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+                    CircularProgressIndicator()
+                }
+            }
+            else{
+                ComponentButton1(text = stringResource(R.string.continuar_next)) {
+                    AuthDoc.register.birthDay = birthDay
+                    isLoad = true
+                    viewModel.register(){isSuccess,messge ->
+                        if(isSuccess){
+                            navController.navigate(Route.VerificationCode)
+                        }
+                        else{
+                            Toast.makeText(context,messge,Toast.LENGTH_LONG).show()
+                        }
+                        isLoad = false
                     }
                 }
             }

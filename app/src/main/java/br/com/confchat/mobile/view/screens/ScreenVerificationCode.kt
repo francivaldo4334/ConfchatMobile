@@ -3,6 +3,7 @@ package br.com.confchat.mobile.view.screens
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -56,6 +58,7 @@ fun ScreenVerificationCode(navController: NavController,viewModel: AuthViewModel
         mutableStateOf("")
     }
     val context = LocalContext.current
+    var isLoad by remember{ mutableStateOf(false) }
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -109,12 +112,21 @@ fun ScreenVerificationCode(navController: NavController,viewModel: AuthViewModel
         }
         item {
             Spacer(modifier = Modifier.height(32.dp))
-            ComponentButton1(text = stringResource(R.string.confirmar)) {
-                viewModel.checkVerificationCode(code){
-                    if(it)
-                        navController.navigate(Route.Login){popUpTo(0)}
-                    else
-                        Toast.makeText(context,"Codigo invalido",Toast.LENGTH_LONG).show()
+            if(isLoad) {
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+            }
+            else {
+                ComponentButton1(text = stringResource(R.string.confirmar)) {
+                    isLoad = true
+                    viewModel.checkVerificationCode(code) {
+                        if (it)
+                            navController.navigate(Route.Login) { popUpTo(0) }
+                        else
+                            Toast.makeText(context, "Codigo invalido", Toast.LENGTH_LONG).show()
+                        isLoad = false
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))

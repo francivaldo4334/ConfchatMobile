@@ -1,9 +1,11 @@
 package br.com.confchat.mobile.view.screens
 
 import android.content.Intent
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -54,6 +57,7 @@ fun ScreenLogin(navController: NavController,viewModel:AuthViewModel = hiltViewM
         mutableStateOf("")
     }
     val context = LocalContext.current as AuthenticationActivity
+    var isLoad by remember{ mutableStateOf(false) }
     LazyColumn(
         Modifier
             .fillMaxSize()
@@ -84,16 +88,25 @@ fun ScreenLogin(navController: NavController,viewModel:AuthViewModel = hiltViewM
                 ComponentTextField1(value = loginOrEmai, onChange = {loginOrEmai = it}, type = TextFieldType.Email)
                 ComponentTextField1(value = password, onChange = {password = it}, type = TextFieldType.Password)
                 Spacer(modifier = Modifier.height(16.dp))
-                ComponentButton1(text = stringResource(R.string.logar)) {
-                    AuthDoc.login.loginOrEmail = loginOrEmai
-                    AuthDoc.login.password = password
-                    viewModel.login(){
-                        if(it){
-                            context.startActivity(Intent(context, HomeActivity::class.java))
-                            context.finish()
-                        }
-                        else{
-                            Toast.makeText(context,"Error",Toast.LENGTH_LONG).show()
+                if(isLoad){
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+                        CircularProgressIndicator()
+                    }
+                }
+                else{
+                    ComponentButton1(text = stringResource(R.string.logar)) {
+                        AuthDoc.login.loginOrEmail = loginOrEmai
+                        AuthDoc.login.password = password
+                        isLoad = true
+                        viewModel.login(){
+                            if(it){
+                                context.startActivity(Intent(context, HomeActivity::class.java))
+                                context.finish()
+                            }
+                            else{
+                                Toast.makeText(context,"Error",Toast.LENGTH_LONG).show()
+                            }
+                            isLoad = false
                         }
                     }
                 }
