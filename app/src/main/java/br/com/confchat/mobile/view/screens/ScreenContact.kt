@@ -2,6 +2,7 @@ package br.com.confchat.mobile.view.screens
 
 import android.app.Activity
 import android.content.Intent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -69,7 +70,9 @@ fun ScreenContact(
                 Row (
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp, end = 16.dp)
+                        .padding(top = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     IconButton(onClick = {
                         expandDropDownMenu = !expandDropDownMenu
@@ -91,13 +94,17 @@ fun ScreenContact(
                         )
                     }
                     ComponentTextFieldSearch(value = search, onChange = {search = it})
-                    IconButton(onClick = { /*TODO*/ }) {
-                        ComponentImageProfile()
+                    IconButton(
+                        onClick = { /*TODO*/ },
+                    ) {
+                        Box(contentAlignment = Alignment.Center){
+                            ComponentImageProfile()
+                        }
                     }
                 }
             }
             item {
-                Text(text = stringResource(R.string.mensagens),modifier = Modifier.padding(start = 16.dp, top = 16.dp))
+                Text(text = stringResource(R.string.contatos),modifier = Modifier.padding(start = 16.dp, top = 16.dp))
                 Spacer(modifier = Modifier.height(16.dp))
             }
             items(lsContacts){
@@ -107,11 +114,11 @@ fun ScreenContact(
                 }
             }
         }
-        FloatingActionButton(onClick = { openNewFriend = true },modifier = Modifier
-            .align(Alignment.BottomEnd)
-            .padding(bottom = 16.dp, end = 16.dp)) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = null)
-        }
+//        FloatingActionButton(onClick = { openNewFriend = true },modifier = Modifier
+//            .align(Alignment.BottomEnd)
+//            .padding(bottom = 16.dp, end = 16.dp)) {
+//            Icon(imageVector = Icons.Default.Add, contentDescription = null)
+//        }
     }
     AddFriendDialog(openNewFriend,{
         chatViewModel.sendSolicit(it)

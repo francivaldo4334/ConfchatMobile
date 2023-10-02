@@ -19,6 +19,7 @@ import br.com.confchat.mobile.veiwmodel.AuthViewModel
 import br.com.confchat.mobile.veiwmodel.ChatViewModel
 import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
 import br.com.confchat.mobile.veiwmodel.model.Message
+import br.com.confchat.mobile.view.componets.ComponentBottomNavigate
 import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.screens.ScreenChat
 import br.com.confchat.mobile.view.screens.ScreenContact
@@ -54,8 +55,26 @@ class HomeActivity : ComponentActivity() {
                                 chatViewModel = viewModel
                             )
                         }
-                    }
+                        composable(Route.Profile){
 
+                        }
+                        composable(Route.Merchant){
+
+                        }
+                        composable(Route.AnonymousChat){
+
+                        }
+                        composable(Route.Add){
+
+                        }
+                    }
+                    ComponentBottomNavigate{
+                        navController.navigate(it){
+                            popUpTo(it){
+                                inclusive = true
+                            }
+                        }
+                    }
                 }
             }
         }
