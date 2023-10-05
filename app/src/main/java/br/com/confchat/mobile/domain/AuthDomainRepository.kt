@@ -3,10 +3,10 @@ package br.com.confchat.mobile.domain
 import android.content.Context
 import android.os.Build
 import br.com.confchat.mobile.common.MyConstants
-import br.com.confchat.mobile.data.network.dto.CheckVerificationCodeDto
-import br.com.confchat.mobile.data.network.repository.IAuthApiRepository
-import br.com.confchat.mobile.data.network.repository.IUserApiRepository
-import br.com.confchat.mobile.data.network.response.ResponseApi
+import br.com.confchat.mobile.data.network.dto.confchat.CheckVerificationCodeDto
+import br.com.confchat.mobile.data.network.repository.confchat.IAuthApiRepository
+import br.com.confchat.mobile.data.network.repository.confchat.IUserApiRepository
+import br.com.confchat.mobile.data.network.response.confchat.ResponseApi
 import br.com.confchat.mobile.domain.model.toDto
 import br.com.confchat.mobile.veiwmodel.model.Login
 import br.com.confchat.mobile.veiwmodel.model.Register

@@ -1,9 +1,9 @@
 package br.com.confchat.mobile.domain.model
 
-import br.com.confchat.mobile.data.network.dto.RegisterDto
+import br.com.confchat.mobile.data.network.dto.confchat.RegisterDto
 import br.com.confchat.mobile.veiwmodel.model.Register
 
-fun Register.toDto() : RegisterDto{
+fun Register.toDto() : RegisterDto {
     val register = RegisterDto()
     val regex = Regex("(\\d{2})(\\d{2})(\\d{4})")
     register.birthDay = this.birthDay.replace(regex,"$3-$2-$1")

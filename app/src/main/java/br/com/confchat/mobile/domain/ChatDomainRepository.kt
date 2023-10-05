@@ -2,21 +2,13 @@ package br.com.confchat.mobile.domain
 
 import android.util.Log
 import br.com.confchat.mobile.common.MyConstants
-import br.com.confchat.mobile.data.network.dto.ChatSendDto
-import br.com.confchat.mobile.data.network.repository.IChatApiRepository
+import br.com.confchat.mobile.data.network.dto.confchat.ChatSendDto
+import br.com.confchat.mobile.data.network.repository.confchat.IChatApiRepository
 import br.com.confchat.mobile.domain.model.toViewModel
-import br.com.confchat.mobile.domain.services.WebSocketService
 import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
 import br.com.confchat.mobile.veiwmodel.model.Message
-import com.google.gson.Gson
-import okhttp3.Headers
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.WebSocket
 
-class ChatDomainRepository constructor(private val chat:IChatApiRepository) : IChatDomainRepository {
+class ChatDomainRepository constructor(private val chat: IChatApiRepository) : IChatDomainRepository {
     override fun listContact(): List<ContactViewModel> {
         val response = chat.listContact(MyConstants.contactPage)
         return response.map { it.toViewModel() }

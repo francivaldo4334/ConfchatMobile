@@ -2,9 +2,13 @@ package br.com.confchat.mobile.view.common
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 
 class CreditCardDoc {
+    var name by  mutableStateOf("")
+    var email by  mutableStateOf("")
+    var cpf by  mutableStateOf("")
     var amont by mutableStateOf("")
     var cardNumber by mutableStateOf("")
     var cardValidate by mutableStateOf("")

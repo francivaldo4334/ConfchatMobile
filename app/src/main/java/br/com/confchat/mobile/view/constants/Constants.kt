@@ -5,6 +5,7 @@ import br.com.confchat.mobile.veiwmodel.model.Register
 object RoutePay{
     val InsertValue = "InsertValue"
     val CardInform = "CardInform"
+    val Custumer = "Custumer"
 }
 object Route {
     val Profile = "Profile"

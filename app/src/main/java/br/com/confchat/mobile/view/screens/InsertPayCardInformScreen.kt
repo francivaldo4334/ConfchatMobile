@@ -41,12 +41,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -59,6 +61,7 @@ import br.com.confchat.mobile.view.Components.ComponentButton1
 import br.com.confchat.mobile.view.Components.ComponentOutlineTextFild
 import br.com.confchat.mobile.view.PaymentActivity
 import br.com.confchat.mobile.view.common.CreditCardDoc
+import br.com.confchat.mobile.view.constants.RoutePay
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 
 private var focusInNumberCard by mutableStateOf(false)
@@ -328,6 +331,7 @@ fun Card(font: Boolean,creditCardDoc:CreditCardDoc) {
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun InsertPayCardInformScreen(navController: NavController,creditCardDoc: CreditCardDoc) {
+    val focusManager = LocalFocusManager.current
     var visibleFront by remember { mutableStateOf(true) }
     val textFild: @Composable (
         KeyboardType,
@@ -346,7 +350,15 @@ fun InsertPayCardInformScreen(navController: NavController,creditCardDoc: Credit
                     modifier = Modifier
                         .fillMaxWidth(fill),
                     onFocus = onFocus,
-                    keyboardType = keyboardType
+                    keyboardType = keyboardType,
+                    imeAction = {
+                        if(label == "Nome no cartao:"){
+                            navController.navigate(RoutePay.Custumer)
+                        }
+                        else {
+                            focusManager.moveFocus(FocusDirection.Next)
+                        }
+                    }
                 )
             }
         }
@@ -453,7 +465,7 @@ fun InsertPayCardInformScreen(navController: NavController,creditCardDoc: Credit
             }
         }
         ComponentButton1(text = "Avancar") {
-
+            navController.navigate(RoutePay.Custumer)
         }
     }
 }

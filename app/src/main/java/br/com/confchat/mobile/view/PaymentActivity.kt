@@ -4,24 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import br.com.confchat.mobile.common.MyConstants
+import br.com.confchat.mobile.veiwmodel.PagBankViewModel
+import br.com.confchat.mobile.veiwmodel.model.PaymentCreditCard
 import br.com.confchat.mobile.view.common.CreditCardDoc
-import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.constants.RoutePay
+import br.com.confchat.mobile.view.screens.CustumerScreen
 import br.com.confchat.mobile.view.screens.InsertPayCardInformScreen
 import br.com.confchat.mobile.view.screens.InsertValuePaymentScreen
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
@@ -34,19 +28,36 @@ class PaymentActivity: ComponentActivity() {
         setContent {
             ConfchatTheme {
                 val navController = rememberNavController()
-                val creditCardDoc = CreditCardDoc()
+                val doc = CreditCardDoc()
+                val pagBankViewModel:PagBankViewModel = hiltViewModel()
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     NavHost(
                         navController = navController,
                         startDestination = RoutePay.InsertValue
                     ){
                         composable(RoutePay.InsertValue){
-                            InsertValuePaymentScreen(navController, creditCardDoc){
-                                creditCardDoc.amont = it
+                            InsertValuePaymentScreen(navController, doc){
+                                doc.amont = it
                             }
                         }
                         composable(RoutePay.CardInform){
-                            InsertPayCardInformScreen(navController,creditCardDoc)
+                            InsertPayCardInformScreen(navController,doc)
+                        }
+                        composable(RoutePay.Custumer){
+                            CustumerScreen(navController,doc){
+                                pagBankViewModel.createPaymentCreditCard(
+                                    PaymentCreditCard(
+                                        name = doc.name,
+                                        cpf = doc.cpf,
+                                        email = doc.email,
+                                        amont = doc.amont.toInt(),
+                                        expirationCard = doc.cardValidate,
+                                        numberCard = doc.cardNumber,
+                                        nameOnCard = doc.nameOnCard,
+                                        cvv = doc.cvv
+                                    )
+                                )
+                            }
                         }
                     }
                 }

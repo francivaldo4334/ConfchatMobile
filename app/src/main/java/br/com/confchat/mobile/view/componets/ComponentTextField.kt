@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -141,6 +143,7 @@ fun ComponentOutlineTextFild(
     background: Color = MaterialTheme.colorScheme.background,
     afterIcon:@Composable ()->Unit = {},
     beforeIcon:@Composable ()->Unit = {},
+    imeAction: ()->Unit = {},
     label:String = "",
     onFocus:(Boolean)->Unit = {}
 ) {
@@ -158,7 +161,8 @@ fun ComponentOutlineTextFild(
         },
         maxLines = 1,
         visualTransformation = visualTransformation,
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType, imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(onDone = {imeAction()}),
         decorationBox = {
             Card(
                 shape = RoundedCornerShape(8.dp),

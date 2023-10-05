@@ -1,7 +1,7 @@
 package br.com.confchat.mobile.domain
 
-import br.com.confchat.mobile.data.network.repository.IUserApiRepository
-import br.com.confchat.mobile.data.network.response.DeviceApi
+import br.com.confchat.mobile.data.network.repository.confchat.IUserApiRepository
+import br.com.confchat.mobile.data.network.response.confchat.DeviceApi
 import br.com.confchat.mobile.domain.model.toViewModel
 import br.com.confchat.mobile.veiwmodel.model.Device
 
