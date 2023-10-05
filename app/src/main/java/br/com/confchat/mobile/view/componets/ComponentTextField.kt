@@ -1,12 +1,10 @@
 package br.com.confchat.mobile.view.Components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -24,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,7 +35,15 @@ import br.com.confchat.mobile.view.enums.TextFieldType
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 
 @Composable
-fun ComponentTextField1(value:String, type:TextFieldType = TextFieldType.None, modifier: Modifier = Modifier, afterIcon:@Composable ()->Unit = {},beforeIcon:@Composable ()->Unit = {}, background:Color = MaterialTheme.colorScheme.onPrimary, onChange:(String)->Unit) {
+fun ComponentTextField1(
+    value: String,
+    type: TextFieldType = TextFieldType.None,
+    modifier: Modifier = Modifier,
+    afterIcon: @Composable () -> Unit = {},
+    beforeIcon: @Composable () -> Unit = {},
+    background: Color = MaterialTheme.colorScheme.onPrimary,
+    onChange: (String) -> Unit
+) {
     when(type){
         TextFieldType.Email ->{
             Email(value = value,onChange = onChange)
@@ -58,6 +65,16 @@ fun ComponentTextField1(value:String, type:TextFieldType = TextFieldType.None, m
         }
         TextFieldType.Code ->{
             Code(value = value, onChange = onChange)
+        }
+        TextFieldType.Outline ->{
+            ComponentOutlineTextFild(
+                value = value,
+                onChange = onChange,
+                modifier = modifier,
+                afterIcon = afterIcon,
+                background = background,
+                beforeIcon = beforeIcon
+            )
         }
         else -> {
             None(
@@ -96,6 +113,58 @@ private fun None(
                 modifier = modifier
                     .padding(horizontal = 16.dp),
                 elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp)
+            ){
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    beforeIcon()
+                    Box(modifier = modifier
+                        .padding(16.dp)){
+                        if(value.isEmpty()){
+                            Text(text = label, fontSize = 14.sp, color = Color.Unspecified.copy(0.5f))
+                        }
+                        it()
+                    }
+                    afterIcon()
+                }
+            }
+        }
+    )
+}
+@Composable
+fun ComponentOutlineTextFild(
+    value:String,
+    onChange:(String)->Unit,
+    modifier: Modifier = Modifier,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    background: Color = MaterialTheme.colorScheme.background,
+    afterIcon:@Composable ()->Unit = {},
+    beforeIcon:@Composable ()->Unit = {},
+    label:String = "",
+    onFocus:(Boolean)->Unit = {}
+) {
+    BasicTextField(
+        modifier = Modifier.onFocusChanged {
+           onFocus(it.isFocused)
+        },
+        value = value,
+        onValueChange = {
+            if(keyboardType == KeyboardType.Number){
+                onChange(it.replace(Regex("[^0-9]"), ""))
+            }
+            else
+                onChange(it)
+        },
+        maxLines = 1,
+        visualTransformation = visualTransformation,
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
+        decorationBox = {
+            Card(
+                shape = RoundedCornerShape(8.dp),
+                colors = CardDefaults.cardColors(containerColor = background),
+                modifier = modifier,
+                border = BorderStroke(1.dp,MaterialTheme.colorScheme.onBackground)
             ){
                 Row(
                     verticalAlignment = Alignment.CenterVertically,

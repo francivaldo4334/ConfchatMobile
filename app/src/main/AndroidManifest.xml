@@ -31,6 +31,8 @@
         <activity
             android:name=".view.AuthenticationActivity"
             android:exported="false"/>
+        <activity android:name=".view.PaymentActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

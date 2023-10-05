@@ -2,7 +2,10 @@ package br.com.confchat.mobile.view.constants
 
 import br.com.confchat.mobile.veiwmodel.model.Login
 import br.com.confchat.mobile.veiwmodel.model.Register
-
+object RoutePay{
+    val InsertValue = "InsertValue"
+    val CardInform = "CardInform"
+}
 object Route {
     val Profile = "Profile"
     val Merchant = "Merchant"
@@ -18,4 +21,14 @@ object Route {
 object AuthDoc {
     var login:Login = Login()
     var register:Register = Register()
+}
+class InformCardPayment{
+    var carNumber = "XXXX XXXX XXXX XXXX"
+    var nameAndLastName = "Name and last name"
+    var validationMonth = ""
+    var validationYear = ""
+    var cvv = ""
+    var installments = 0
+    var cpf = ""
+    var email = ""
 }
