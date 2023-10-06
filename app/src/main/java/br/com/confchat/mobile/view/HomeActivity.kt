@@ -28,11 +28,14 @@ import br.com.confchat.mobile.veiwmodel.AuthViewModel
 import br.com.confchat.mobile.veiwmodel.ChatViewModel
 import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
 import br.com.confchat.mobile.veiwmodel.model.Message
+import br.com.confchat.mobile.veiwmodel.model.Product
+import br.com.confchat.mobile.view.common.ProfileInformations
 import br.com.confchat.mobile.view.componets.ComponentBottomNavigate
 import br.com.confchat.mobile.view.constants.InformCardPayment
 import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.screens.InsertPayCardInformScreen
 import br.com.confchat.mobile.view.screens.InsertValuePaymentScreen
+import br.com.confchat.mobile.view.screens.ProfileScreen
 import br.com.confchat.mobile.view.screens.ScreenChat
 import br.com.confchat.mobile.view.screens.ScreenContact
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
@@ -46,6 +49,8 @@ class HomeActivity : ComponentActivity() {
             val viewModel : ChatViewModel = hiltViewModel()
             val viewModelAuth : AuthViewModel = hiltViewModel()
             val listContact : List<ContactViewModel> by viewModel.listContact.collectAsState()
+            val profileInformations = ProfileInformations()
+            val products:List<Product> = buildList {}
             viewModel.loadContacts()
             ConfchatTheme {
                 val navController = rememberNavController()
@@ -72,7 +77,7 @@ class HomeActivity : ComponentActivity() {
                             )
                         }
                         composable(Route.Profile){
-
+                            ProfileScreen(navController,profileInformations,products)
                         }
                         composable(Route.Merchant){
 

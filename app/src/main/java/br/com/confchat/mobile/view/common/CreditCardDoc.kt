@@ -25,7 +25,7 @@ class CreditCardDoc {
         }
         val regex = Regex("(\\d+)(\\d{2})")
         val result = value.replace(regex, "$1,$2")
-        "$ $result"
+        "R$ $result"
     }
     val maskValid: (String) -> String = {
         var value = it

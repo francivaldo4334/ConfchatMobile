@@ -23,4 +23,7 @@
     <string name="inserir_c_digo_de_verifica_o">Inserir código de verificação</string>
     <string name="reenviar_c_digo">Reenviar código</string>
     <string name="contatos">Contatos</string>
+    <string name="meu_perfil">Meu perfil</string>
+    <string name="adicione_seus_produtos">Adicione seus produtos\npara começar a vender :D</string>
+    <string name="adicionar_produtos">Adicionar produtos</string>
 </resources>

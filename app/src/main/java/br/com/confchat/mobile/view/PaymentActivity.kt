@@ -45,7 +45,7 @@ class PaymentActivity: ComponentActivity() {
                         }
                         composable(RoutePay.Custumer){
                             CustumerScreen(navController,doc){
-                                pagBankViewModel.createPaymentCreditCard(
+                                pagBankViewModel.initPaymentCreditCard(
                                     PaymentCreditCard(
                                         name = doc.name,
                                         cpf = doc.cpf,

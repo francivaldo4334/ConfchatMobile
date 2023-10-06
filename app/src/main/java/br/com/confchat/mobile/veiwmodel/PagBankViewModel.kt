@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PagBankViewModel @Inject constructor(private val domain: IPagBankDomainRepository) : ViewModel(){
-    fun createPaymentCreditCard(data: PaymentCreditCard){
+    fun initPaymentCreditCard(data: PaymentCreditCard){
         viewModelScope.launch(Dispatchers.IO) {
             domain.createOrder(data)
         }
