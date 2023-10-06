@@ -1,8 +1,16 @@
 package br.com.confchat.mobile.di
 
+import android.app.Application
 import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import br.com.confchat.mobile.MyApplication
 import br.com.confchat.mobile.R
 import br.com.confchat.mobile.common.MyConstants
+import br.com.confchat.mobile.data.database.AppDatabase
+import br.com.confchat.mobile.data.database.dao.PaymentDao
+import br.com.confchat.mobile.data.database.repository.DatabaseRepository
+import br.com.confchat.mobile.data.database.repository.IDatabaseRepository
 import br.com.confchat.mobile.data.network.repository.confchat.AuthApiRepository
 import br.com.confchat.mobile.data.network.repository.confchat.ChatApiRepository
 import br.com.confchat.mobile.data.network.repository.confchat.IAuthApiRepository
@@ -15,7 +23,9 @@ import br.com.confchat.mobile.data.network.service.ApiConfchatService
 import br.com.confchat.mobile.data.network.service.ApiaPagBankService
 import br.com.confchat.mobile.domain.AuthDomainRepository
 import br.com.confchat.mobile.domain.ChatDomainRepository
+import br.com.confchat.mobile.domain.ConfchatDbDomainRepository
 import br.com.confchat.mobile.domain.IChatDomainRepository
+import br.com.confchat.mobile.domain.IConfchatDbDomainRepository
 import br.com.confchat.mobile.domain.IPagBankDomainRepository
 import br.com.confchat.mobile.domain.PagBankDomainRepository
 import br.com.confchat.mobile.domain.UserDomainRepository
@@ -142,7 +152,17 @@ object StanceModule {
     }
     @Provides
     @Singleton
-    fun providerPagbankDomaiRepository(it: IApiPagBankRepository):IPagBankDomainRepository{
-        return PagBankDomainRepository(it)
+    fun providerDatabase(@ApplicationContext context: Context): IDatabaseRepository {
+        return DatabaseRepository(AppDatabase.getInstance(context).paymentDao())
+    }
+    @Provides
+    @Singleton
+    fun providerAppDatabase(db:IDatabaseRepository): IConfchatDbDomainRepository {
+        return ConfchatDbDomainRepository(db)
+    }
+    @Provides
+    @Singleton
+    fun providerPagbankDomaiRepository(it: IApiPagBankRepository,db:IDatabaseRepository):IPagBankDomainRepository{
+        return PagBankDomainRepository(it,db)
     }
 }
