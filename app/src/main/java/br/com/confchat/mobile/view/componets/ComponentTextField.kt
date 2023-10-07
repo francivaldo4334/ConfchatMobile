@@ -90,6 +90,27 @@ fun ComponentTextField1(
         }
     }
 }
+
+@Composable
+fun ComponentTextFieldLabel(
+    value:String,
+    onChange:(String)->Unit,
+    modifier: Modifier = Modifier,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    onNext:()->Unit,
+    label:String = ""
+) {
+    None(
+        value = value,
+        onChange = onChange,
+        modifier = modifier,
+        visualTransformation = visualTransformation,
+        keyboardType = keyboardType,
+        label = label,
+        onAction = onNext
+    )
+}
 @Composable
 private fun None(
     value:String,
@@ -100,6 +121,7 @@ private fun None(
     background: Color = MaterialTheme.colorScheme.background,
     afterIcon:@Composable ()->Unit = {},
     beforeIcon:@Composable ()->Unit = {},
+    onAction: ()->Unit = {},
     label:String = ""
 ) {
     BasicTextField(
@@ -107,7 +129,8 @@ private fun None(
         onValueChange = onChange,
         maxLines = 1,
         visualTransformation = visualTransformation,
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType, imeAction = ImeAction.Next),
+        keyboardActions = KeyboardActions(onNext = {onAction()}),
         decorationBox = {
             Card(
                 shape = RoundedCornerShape(8.dp),

@@ -16,8 +16,8 @@ class VisualTransformationAmount : VisualTransformation {
             }
         }
         val regex = Regex("(\\d+)(\\d{2})")
-        val result = value.replace(regex, "$1,$2")
-        "R$ $result"
+        var result = value.replace(regex, "$1,$2")
+        result = "R$ $result"
         return TransformedText(
             text = AnnotatedString(result),
             offsetMapping = object : OffsetMapping {
@@ -26,7 +26,7 @@ class VisualTransformationAmount : VisualTransformation {
                 }
 
                 override fun transformedToOriginal(offset: Int): Int {
-                    return offset
+                    return text.length
                 }
 
             }

@@ -54,7 +54,12 @@ import br.com.confchat.mobile.view.componets.ComponentImageProfile
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 
 @Composable
-fun ProfileScreen(navController: NavController, profileInformations: ProfileInformations,listProduct: List<Product>) {
+fun ProfileScreen(
+    navController: NavController,
+    profileInformations: ProfileInformations,
+    listProduct: List<Product>,
+    onNewProduct:()->Unit
+) {
     Column {
         Box(modifier = Modifier.fillMaxWidth()) {
             IconButton(
@@ -152,7 +157,7 @@ fun ProfileScreen(navController: NavController, profileInformations: ProfileInfo
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(text = stringResource(R.string.adicione_seus_produtos).replace("\\n","\n"), fontWeight = FontWeight.Light)
                         Spacer(modifier = Modifier.height(16.dp))
-                        Button(onClick = { /*TODO*/ }) {
+                        Button(onClick = onNewProduct) {
                             Text(text = stringResource(R.string.adicionar_produtos))
                         }
                     }
@@ -194,6 +199,6 @@ fun ProfileScreen(navController: NavController, profileInformations: ProfileInfo
 @Composable
 fun ProfileScreenPreview() {
     ConfchatTheme {
-        ProfileScreen(rememberNavController(), ProfileInformations(), emptyList())
+        ProfileScreen(rememberNavController(), ProfileInformations(), emptyList(),{})
     }
 }
