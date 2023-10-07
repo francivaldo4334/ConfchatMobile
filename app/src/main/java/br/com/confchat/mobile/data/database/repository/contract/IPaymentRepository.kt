@@ -1,7 +1,7 @@
-package br.com.confchat.mobile.data.database.repository
+package br.com.confchat.mobile.data.database.repository.contract
 
 import br.com.confchat.mobile.data.database.entitys.Payment
 
-interface IDatabaseRepository {
+interface IPaymentRepository {
     fun create(it:Payment):Payment
 }

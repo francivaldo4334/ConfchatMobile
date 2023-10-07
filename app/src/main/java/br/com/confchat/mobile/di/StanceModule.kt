@@ -1,16 +1,11 @@
 package br.com.confchat.mobile.di
 
-import android.app.Application
 import android.content.Context
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import br.com.confchat.mobile.MyApplication
 import br.com.confchat.mobile.R
 import br.com.confchat.mobile.common.MyConstants
 import br.com.confchat.mobile.data.database.AppDatabase
-import br.com.confchat.mobile.data.database.dao.PaymentDao
-import br.com.confchat.mobile.data.database.repository.DatabaseRepository
-import br.com.confchat.mobile.data.database.repository.IDatabaseRepository
+import br.com.confchat.mobile.data.database.repository.implementation.PaymentRepository
+import br.com.confchat.mobile.data.database.repository.contract.IPaymentRepository
 import br.com.confchat.mobile.data.network.repository.confchat.AuthApiRepository
 import br.com.confchat.mobile.data.network.repository.confchat.ChatApiRepository
 import br.com.confchat.mobile.data.network.repository.confchat.IAuthApiRepository
@@ -21,14 +16,14 @@ import br.com.confchat.mobile.data.network.repository.pagbank.ApiPagBankReposito
 import br.com.confchat.mobile.data.network.repository.pagbank.IApiPagBankRepository
 import br.com.confchat.mobile.data.network.service.ApiConfchatService
 import br.com.confchat.mobile.data.network.service.ApiaPagBankService
-import br.com.confchat.mobile.domain.AuthDomainRepository
-import br.com.confchat.mobile.domain.ChatDomainRepository
-import br.com.confchat.mobile.domain.ConfchatDbDomainRepository
-import br.com.confchat.mobile.domain.IChatDomainRepository
-import br.com.confchat.mobile.domain.IConfchatDbDomainRepository
-import br.com.confchat.mobile.domain.IPagBankDomainRepository
-import br.com.confchat.mobile.domain.PagBankDomainRepository
-import br.com.confchat.mobile.domain.UserDomainRepository
+import br.com.confchat.mobile.domain.repository.implementation.AuthDomainRepository
+import br.com.confchat.mobile.domain.repository.implementation.ChatDomainRepository
+import br.com.confchat.mobile.domain.repository.implementation.ConfchatDbDomainRepository
+import br.com.confchat.mobile.domain.repository.contract.IChatDomainRepository
+import br.com.confchat.mobile.domain.repository.contract.IConfchatDbDomainRepository
+import br.com.confchat.mobile.domain.repository.contract.IPagBankDomainRepository
+import br.com.confchat.mobile.domain.repository.implementation.PagBankDomainRepository
+import br.com.confchat.mobile.domain.repository.implementation.UserDomainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -106,7 +101,7 @@ object StanceModule {
     }
     @Provides
     @Singleton
-    fun providerAuthDomainRepository(auth: IAuthApiRepository, user: IUserApiRepository, @ApplicationContext context: Context): AuthDomainRepository{
+    fun providerAuthDomainRepository(auth: IAuthApiRepository, user: IUserApiRepository, @ApplicationContext context: Context): AuthDomainRepository {
         return AuthDomainRepository(auth,user,context)
     }
 
@@ -127,7 +122,7 @@ object StanceModule {
     }
     @Provides
     @Singleton
-    fun providerChatDomaiRepository(it: IChatApiRepository):IChatDomainRepository{
+    fun providerChatDomaiRepository(it: IChatApiRepository): IChatDomainRepository {
         return ChatDomainRepository(it)
     }
     @Provides
@@ -152,17 +147,22 @@ object StanceModule {
     }
     @Provides
     @Singleton
-    fun providerDatabase(@ApplicationContext context: Context): IDatabaseRepository {
-        return DatabaseRepository(AppDatabase.getInstance(context).paymentDao())
+    fun providerPayment(@ApplicationContext context: Context): IPaymentRepository {
+        return PaymentRepository(AppDatabase.getInstance(context).paymentDao())
     }
     @Provides
     @Singleton
-    fun providerAppDatabase(db:IDatabaseRepository): IConfchatDbDomainRepository {
+    fun providerProduct(@ApplicationContext context: Context): IPaymentRepository {
+        return PaymentRepository(AppDatabase.getInstance(context).paymentDao())//TODO
+    }
+    @Provides
+    @Singleton
+    fun providerAppPayment(db: IPaymentRepository): IConfchatDbDomainRepository {
         return ConfchatDbDomainRepository(db)
     }
     @Provides
     @Singleton
-    fun providerPagbankDomaiRepository(it: IApiPagBankRepository,db:IDatabaseRepository):IPagBankDomainRepository{
+    fun providerPagbankDomaiRepository(it: IApiPagBankRepository,db: IPaymentRepository): IPagBankDomainRepository {
         return PagBankDomainRepository(it,db)
     }
 }

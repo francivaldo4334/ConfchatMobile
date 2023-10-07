@@ -6,13 +6,15 @@ import androidx.room.PrimaryKey
 import java.util.Date
 
 @Entity(tableName = "payment")
-data class Payment (
+class Payment (
     @PrimaryKey(autoGenerate = true) val id:Int = 0,
     @ColumnInfo(name = "client_name") val clientName:String,
     @ColumnInfo(name = "create_at") val createAt: Date,
     @ColumnInfo(name = "amount") val amount: Int,
-    @ColumnInfo(name = "order_id") val order:String
-)
+    @ColumnInfo(name = "order_id") val order:String,
+) : BaseEntity() {
+
+}
 fun Payment.getReference():String{
     return "sale-${this.id}"
 }

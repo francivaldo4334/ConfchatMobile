@@ -40,12 +40,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import br.com.confchat.mobile.R
-import br.com.confchat.mobile.domain.IAuthDomainRepository
 import br.com.confchat.mobile.veiwmodel.AuthViewModel
 import br.com.confchat.mobile.view.Components.ComponentButton1
 import br.com.confchat.mobile.view.Components.ComponentIcon1
 import br.com.confchat.mobile.view.Components.ComponentTextField1
-import br.com.confchat.mobile.view.Components.ComponentTextLink1
 import br.com.confchat.mobile.view.constants.AuthDoc
 import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.enums.IconsLayout

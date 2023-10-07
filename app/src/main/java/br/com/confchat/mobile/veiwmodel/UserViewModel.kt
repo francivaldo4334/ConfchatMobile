@@ -3,7 +3,7 @@ package br.com.confchat.mobile.veiwmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.confchat.mobile.domain.IUserDomainRepository
+import br.com.confchat.mobile.domain.repository.contract.IUserDomainRepository
 import br.com.confchat.mobile.veiwmodel.model.Device
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

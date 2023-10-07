@@ -1,9 +1,9 @@
 package br.com.confchat.mobile.di
 
-import br.com.confchat.mobile.domain.AuthDomainRepository
-import br.com.confchat.mobile.domain.IAuthDomainRepository
-import br.com.confchat.mobile.domain.IUserDomainRepository
-import br.com.confchat.mobile.domain.UserDomainRepository
+import br.com.confchat.mobile.domain.repository.implementation.AuthDomainRepository
+import br.com.confchat.mobile.domain.repository.contract.IAuthDomainRepository
+import br.com.confchat.mobile.domain.repository.contract.IUserDomainRepository
+import br.com.confchat.mobile.domain.repository.implementation.UserDomainRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package br.com.confchat.mobile.domain
+package br.com.confchat.mobile.domain.repository.contract
 
 import br.com.confchat.mobile.veiwmodel.model.Device
 

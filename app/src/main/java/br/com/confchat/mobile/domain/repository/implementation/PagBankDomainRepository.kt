@@ -1,10 +1,9 @@
-package br.com.confchat.mobile.domain
+package br.com.confchat.mobile.domain.repository.implementation
 
-import android.provider.ContactsContract.Data
 import android.util.Log
 import br.com.confchat.mobile.data.database.entitys.Payment
 import br.com.confchat.mobile.data.database.entitys.getReference
-import br.com.confchat.mobile.data.database.repository.IDatabaseRepository
+import br.com.confchat.mobile.data.database.repository.contract.IPaymentRepository
 import br.com.confchat.mobile.data.network.dto.pagbank.Amount
 import br.com.confchat.mobile.data.network.dto.pagbank.Card
 import br.com.confchat.mobile.data.network.dto.pagbank.Charge
@@ -14,10 +13,12 @@ import br.com.confchat.mobile.data.network.dto.pagbank.Holder
 import br.com.confchat.mobile.data.network.dto.pagbank.Item
 import br.com.confchat.mobile.data.network.dto.pagbank.PaymentMethod
 import br.com.confchat.mobile.data.network.repository.pagbank.IApiPagBankRepository
+import br.com.confchat.mobile.domain.repository.contract.IPagBankDomainRepository
 import br.com.confchat.mobile.veiwmodel.model.PaymentCreditCard
 import java.util.Date
 
-class PagBankDomainRepository constructor(private val doc: IApiPagBankRepository,private val db: IDatabaseRepository) : IPagBankDomainRepository {
+class PagBankDomainRepository constructor(private val doc: IApiPagBankRepository,private val db: IPaymentRepository) :
+    IPagBankDomainRepository {
     override fun createOrder(data: PaymentCreditCard) {
         //tratar validade do cartao
         val expMonth = data.expirationCard.substring(0,2).toInt()

@@ -2,7 +2,7 @@ package br.com.confchat.mobile.veiwmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.confchat.mobile.domain.IPagBankDomainRepository
+import br.com.confchat.mobile.domain.repository.contract.IPagBankDomainRepository
 import br.com.confchat.mobile.veiwmodel.model.PaymentCreditCard
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

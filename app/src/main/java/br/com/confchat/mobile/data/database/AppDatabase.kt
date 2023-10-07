@@ -9,12 +9,21 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import br.com.confchat.mobile.data.database.dao.PaymentDao
+import br.com.confchat.mobile.data.database.dao.ProductDao
 import br.com.confchat.mobile.data.database.entitys.Payment
+import br.com.confchat.mobile.data.database.entitys.Product
 
-@Database(entities = [Payment::class], version = 1)
+@Database(
+    entities = [
+        Payment::class,
+        Product::class
+    ],
+    version = 1
+)
 @TypeConverters(Convertes::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun paymentDao(): PaymentDao
+    abstract fun productDao(): ProductDao
     companion object{
         private lateinit var INSTANCE: AppDatabase
         fun getInstance(context:Context) : AppDatabase{
@@ -33,7 +42,6 @@ abstract class AppDatabase : RoomDatabase() {
         }
         private val MIGRATION_1_2:Migration = object : Migration(1,2){
             override fun migrate(database: SupportSQLiteDatabase) {
-                //IMPLEMENTAR SE NECESSARIO
             }
 
         }

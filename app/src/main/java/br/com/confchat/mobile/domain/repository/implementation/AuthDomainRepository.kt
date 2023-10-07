@@ -1,4 +1,4 @@
-package br.com.confchat.mobile.domain
+package br.com.confchat.mobile.domain.repository.implementation
 
 import android.content.Context
 import android.os.Build
@@ -8,6 +8,7 @@ import br.com.confchat.mobile.data.network.repository.confchat.IAuthApiRepositor
 import br.com.confchat.mobile.data.network.repository.confchat.IUserApiRepository
 import br.com.confchat.mobile.data.network.response.confchat.ResponseApi
 import br.com.confchat.mobile.domain.model.toDto
+import br.com.confchat.mobile.domain.repository.contract.IAuthDomainRepository
 import br.com.confchat.mobile.veiwmodel.model.Login
 import br.com.confchat.mobile.veiwmodel.model.Register
 import br.com.confchat.mobile.view.constants.AuthDoc
