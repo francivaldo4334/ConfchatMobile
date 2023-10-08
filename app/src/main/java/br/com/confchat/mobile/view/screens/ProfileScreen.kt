@@ -1,5 +1,6 @@
 package br.com.confchat.mobile.view.screens
 
+import android.app.Activity
 import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,9 +19,15 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.outlined.ExitToApp
+import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -36,6 +43,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -51,8 +59,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import br.com.confchat.mobile.R
+import br.com.confchat.mobile.veiwmodel.AuthViewModel
 import br.com.confchat.mobile.veiwmodel.ProductViewModel
 import br.com.confchat.mobile.veiwmodel.model.ProductModeltViewModel
+import br.com.confchat.mobile.view.AuthenticationActivity
 import br.com.confchat.mobile.view.PaymentActivity
 import br.com.confchat.mobile.view.common.CreditCardDoc
 import br.com.confchat.mobile.view.common.ProfileInformations
@@ -61,6 +71,7 @@ import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 
 @Composable
 fun ProfileScreen(
+    authViewModel: AuthViewModel = hiltViewModel(),
     viewModelProduct:ProductViewModel = hiltViewModel(),
     navController: NavController,
     profileInformations: ProfileInformations,
@@ -70,7 +81,7 @@ fun ProfileScreen(
     var openMoreOptions by remember{
         mutableStateOf(false)
     }
-    val context = LocalContext.current
+    val context = LocalContext.current as Activity
     Column {
         Box(modifier = Modifier.fillMaxWidth()) {
             IconButton(
@@ -101,6 +112,24 @@ fun ProfileScreen(
                     DropdownMenuItem(text = {
                         Text(text = stringResource(R.string.realizar_venda))
                     }, onClick = { context.startActivity(Intent(context,PaymentActivity::class.java))})
+                    DropdownMenuItem(
+                        text = {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(imageVector = Icons.Outlined.ExitToApp, contentDescription = null)
+                                Text(text = "Sair")
+                            }
+                        },
+                        onClick = {
+                            authViewModel.logout()
+                            context.startActivity(
+                                Intent(context, AuthenticationActivity::class.java)
+                            )
+                            context.finish()
+                        }
+                    )
                 }
             }
         }
@@ -189,11 +218,13 @@ fun ProfileScreen(
                     Column(
                         Modifier
                             .fillMaxWidth()
+                            .clip(RoundedCornerShape(16.dp))
+                            .clickable { }
+                            .padding(8.dp)
                     ) {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
                                 .aspectRatio(1f),
                             contentAlignment = Alignment.Center
                         ){
@@ -204,9 +235,37 @@ fun ProfileScreen(
                                 tint = MaterialTheme.colorScheme.onBackground.copy(0.5f)
                             )
                         }
-                        Text(text = it.name)
-                        val mask = CreditCardDoc().mask
-                        Text(text = mask(it.value.toString()), fontWeight = FontWeight.Bold)
+                        Row(
+                            Modifier.fillMaxWidth()
+                        ) {
+                             Column(
+                                 Modifier.weight(1f)
+                             ) {
+                                 Text(text = it.name, fontSize = 12.sp)
+                                 val mask = CreditCardDoc().mask
+                                 Text(text = mask(it.value.toString()), fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                             }
+                            IconButton(
+                                onClick = { /*TODO*/ },
+                                modifier = Modifier.size(40.dp)
+                            ) {
+                                Icon(
+                                    modifier = Modifier.size(20.dp),
+                                    imageVector = Icons.Default.FavoriteBorder,
+                                    contentDescription = null
+                                )
+                            }
+                            IconButton(
+                                onClick = { /*TODO*/ },
+                                modifier = Modifier.size(40.dp)
+                            ) {
+                                Icon(
+                                    modifier = Modifier.size(20.dp),
+                                    imageVector = Icons.Outlined.ShoppingCart,
+                                    contentDescription = null
+                                )
+                            }
+                        }
                     }
                 }
             }

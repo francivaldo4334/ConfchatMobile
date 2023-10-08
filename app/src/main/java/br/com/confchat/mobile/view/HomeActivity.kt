@@ -58,7 +58,6 @@ class HomeActivity : ComponentActivity() {
                         composable(Route.Contact){
                             ScreenContact(
                                 lsContacts = listContact,
-                                authViewModel = viewModelAuth,
                                 chatViewModel = viewModel,
                                 navController = navController
                             )
@@ -73,6 +72,7 @@ class HomeActivity : ComponentActivity() {
                         }
                         composable(Route.Profile){
                             ProfileScreen(
+                                authViewModel = viewModelAuth,
                                 navController = navController,
                                 profileInformations = profileInformations,
                                 viewModelProduct = viewModelProduct,
@@ -88,18 +88,14 @@ class HomeActivity : ComponentActivity() {
 
                         }
                     }
-                    ComponentBottomNavigate{
-                        when(it){
-                            Route.Add ->{
-//                                startActivity(Intent(this@HomeActivity,PaymentActivity::class.java))
-//                                openScreenNewProduct = true
-                            }
-                            else ->{
-                                navController.navigate(it){
-                                    popUpTo(it){
-                                        inclusive = true
-                                    }
-                                }
+                    ComponentBottomNavigate(
+                        onNewProduct ={
+                            openScreenNewProduct = true
+                        }
+                    ){
+                        navController.navigate(it){
+                            popUpTo(it){
+                                inclusive = true
                             }
                         }
                     }

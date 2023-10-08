@@ -50,7 +50,6 @@ import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 @Composable
 fun ScreenContact(
     lsContacts: List<ContactViewModel>,
-    authViewModel:AuthViewModel = hiltViewModel(),
     chatViewModel:ChatViewModel = hiltViewModel(),
     navController: NavController
 ) {
@@ -80,18 +79,7 @@ fun ScreenContact(
                         Icon(imageVector = Icons.Default.Menu, contentDescription = null)
                     }
                     DropdownMenu(expanded = expandDropDownMenu, onDismissRequest = { expandDropDownMenu = false }) {
-                        DropdownMenuItem(
-                            text = {
-                                Text(text = "Deslogar")
-                            },
-                            onClick = {
-                                authViewModel.logout()
-                                context.startActivity(
-                                    Intent(context,AuthenticationActivity::class.java)
-                                )
-                                context.finish()
-                            }
-                        )
+
                     }
                     ComponentTextFieldSearch(value = search, onChange = {search = it})
                     IconButton(
