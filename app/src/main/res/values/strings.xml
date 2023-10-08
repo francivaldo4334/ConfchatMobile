@@ -26,4 +26,6 @@
     <string name="meu_perfil">Meu perfil</string>
     <string name="adicione_seus_produtos">Adicione seus produtos\npara começar a vender :D</string>
     <string name="adicionar_produtos">Adicionar produtos</string>
+    <string name="novo_produto">Novo Produto</string>
+    <string name="realizar_venda">Realizar venda</string>
 </resources>

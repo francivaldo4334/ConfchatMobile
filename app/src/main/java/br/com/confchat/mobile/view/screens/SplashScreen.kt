@@ -37,7 +37,7 @@ fun SplashScreen() {
             Icon(
                 painter = painterResource(id = R.drawable.ic_confchat),
                 contentDescription = null,
-                modifier = Modifier.size(56.dp)
+                modifier = Modifier.size(42.dp)
             )
             Text(
                 text = stringResource(id = R.string.app_name),

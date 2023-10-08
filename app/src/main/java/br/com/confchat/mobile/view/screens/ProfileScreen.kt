@@ -1,5 +1,6 @@
 package br.com.confchat.mobile.view.screens
 
+import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,6 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -51,6 +53,7 @@ import androidx.navigation.compose.rememberNavController
 import br.com.confchat.mobile.R
 import br.com.confchat.mobile.veiwmodel.ProductViewModel
 import br.com.confchat.mobile.veiwmodel.model.ProductModeltViewModel
+import br.com.confchat.mobile.view.PaymentActivity
 import br.com.confchat.mobile.view.common.CreditCardDoc
 import br.com.confchat.mobile.view.common.ProfileInformations
 import br.com.confchat.mobile.view.componets.ComponentImageProfile
@@ -67,6 +70,7 @@ fun ProfileScreen(
     var openMoreOptions by remember{
         mutableStateOf(false)
     }
+    val context = LocalContext.current
     Column {
         Box(modifier = Modifier.fillMaxWidth()) {
             IconButton(
@@ -92,8 +96,11 @@ fun ProfileScreen(
                 }
                 DropdownMenu(expanded = openMoreOptions, onDismissRequest = { openMoreOptions = false }) {
                     DropdownMenuItem(text = {
-                        Text(text = "Novo Produto")
+                        Text(text = stringResource(R.string.novo_produto))
                     }, onClick = { onNewProduct();openMoreOptions = false })
+                    DropdownMenuItem(text = {
+                        Text(text = stringResource(R.string.realizar_venda))
+                    }, onClick = { context.startActivity(Intent(context,PaymentActivity::class.java))})
                 }
             }
         }
