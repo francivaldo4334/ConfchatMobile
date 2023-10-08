@@ -20,8 +20,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.confchat.mobile.veiwmodel.AuthViewModel
 import br.com.confchat.mobile.veiwmodel.ChatViewModel
+import br.com.confchat.mobile.veiwmodel.ProductViewModel
 import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
-import br.com.confchat.mobile.veiwmodel.model.Product
+import br.com.confchat.mobile.veiwmodel.model.ProductModeltViewModel
 import br.com.confchat.mobile.view.common.ProfileInformations
 import br.com.confchat.mobile.view.componets.ComponentBottomNavigate
 import br.com.confchat.mobile.view.constants.Route
@@ -39,9 +40,9 @@ class HomeActivity : ComponentActivity() {
         setContent {
             val viewModel : ChatViewModel = hiltViewModel()
             val viewModelAuth : AuthViewModel = hiltViewModel()
+            val viewModelProduct : ProductViewModel = hiltViewModel()
             val listContact : List<ContactViewModel> by viewModel.listContact.collectAsState()
             val profileInformations = ProfileInformations()
-            val products:List<Product> = buildList {}
             var openScreenNewProduct by remember {
                 mutableStateOf(false)
             }
@@ -72,9 +73,9 @@ class HomeActivity : ComponentActivity() {
                         }
                         composable(Route.Profile){
                             ProfileScreen(
-                                navController,
-                                profileInformations,
-                                products,
+                                navController = navController,
+                                profileInformations = profileInformations,
+                                viewModelProduct = viewModelProduct,
                                 onNewProduct ={
                                     openScreenNewProduct = true
                                 }
@@ -102,7 +103,10 @@ class HomeActivity : ComponentActivity() {
                             }
                         }
                     }
-                    registerNewProductScreen(openScreenNewProduct){
+                    registerNewProductScreen(
+                        openScreenNewProduct,
+                        viewModel = viewModelProduct
+                    ){
                         openScreenNewProduct = false;
                     }
                 }

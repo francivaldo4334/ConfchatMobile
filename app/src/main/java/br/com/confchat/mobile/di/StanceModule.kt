@@ -6,6 +6,8 @@ import br.com.confchat.mobile.common.MyConstants
 import br.com.confchat.mobile.data.database.AppDatabase
 import br.com.confchat.mobile.data.database.repository.implementation.PaymentRepository
 import br.com.confchat.mobile.data.database.repository.contract.IPaymentRepository
+import br.com.confchat.mobile.data.database.repository.contract.IProductRepository
+import br.com.confchat.mobile.data.database.repository.implementation.ProductRepository
 import br.com.confchat.mobile.data.network.repository.confchat.AuthApiRepository
 import br.com.confchat.mobile.data.network.repository.confchat.ChatApiRepository
 import br.com.confchat.mobile.data.network.repository.confchat.IAuthApiRepository
@@ -22,7 +24,9 @@ import br.com.confchat.mobile.domain.repository.implementation.ConfchatDbDomainR
 import br.com.confchat.mobile.domain.repository.contract.IChatDomainRepository
 import br.com.confchat.mobile.domain.repository.contract.IConfchatDbDomainRepository
 import br.com.confchat.mobile.domain.repository.contract.IPagBankDomainRepository
+import br.com.confchat.mobile.domain.repository.contract.IProductDomainRepository
 import br.com.confchat.mobile.domain.repository.implementation.PagBankDomainRepository
+import br.com.confchat.mobile.domain.repository.implementation.ProductDomainRepository
 import br.com.confchat.mobile.domain.repository.implementation.UserDomainRepository
 import dagger.Module
 import dagger.Provides
@@ -152,8 +156,13 @@ object StanceModule {
     }
     @Provides
     @Singleton
-    fun providerProduct(@ApplicationContext context: Context): IPaymentRepository {
-        return PaymentRepository(AppDatabase.getInstance(context).paymentDao())//TODO
+    fun providerProduct(@ApplicationContext context: Context): IProductRepository {
+        return ProductRepository(AppDatabase.getInstance(context).productDao())
+    }
+    @Provides
+    @Singleton
+    fun providerProductDomain(it: IProductRepository) : IProductDomainRepository{
+        return ProductDomainRepository(it)
     }
     @Provides
     @Singleton

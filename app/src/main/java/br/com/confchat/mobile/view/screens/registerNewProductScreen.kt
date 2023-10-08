@@ -2,7 +2,6 @@ package br.com.confchat.mobile.view.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,14 +25,16 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import br.com.confchat.mobile.veiwmodel.ProductViewModel
+import br.com.confchat.mobile.veiwmodel.model.ProductModeltViewModel
 import br.com.confchat.mobile.view.Components.ComponentButton1
-import br.com.confchat.mobile.view.Components.ComponentTextField1
 import br.com.confchat.mobile.view.Components.ComponentTextFieldLabel
 import br.com.confchat.mobile.view.common.visualtransformations.VisualTransformationAmount
 import br.com.confchat.mobile.view.componets.ComponentDropUpCard
 
 @Composable
-fun registerNewProductScreen(expanded: Boolean, onDismiss: () -> Unit) {
+fun registerNewProductScreen(expanded: Boolean, viewModel: ProductViewModel = hiltViewModel(), onDismiss: () -> Unit) {
     var productName by remember{ mutableStateOf("") }
     var productValue by remember{ mutableStateOf("") }
     val focusManager = LocalFocusManager.current
@@ -86,7 +87,11 @@ fun registerNewProductScreen(expanded: Boolean, onDismiss: () -> Unit) {
             }
             item {
                 ComponentButton1(text = "+ Adicionar produto") {
-                    
+                    viewModel.creatProduct(ProductModeltViewModel(
+                        name = productName,
+                        value = productValue.toInt(),
+                        img = ""
+                    ))
                 }
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -97,5 +102,5 @@ fun registerNewProductScreen(expanded: Boolean, onDismiss: () -> Unit) {
 @Preview
 @Composable
 fun registerNewProductScreenPreview() {
-    registerNewProductScreen(true) {}
+    registerNewProductScreen(true){}
 }
