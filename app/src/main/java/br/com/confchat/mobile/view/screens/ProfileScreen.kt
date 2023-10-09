@@ -2,6 +2,7 @@ package br.com.confchat.mobile.view.screens
 
 import android.app.Activity
 import android.content.Intent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,10 +23,9 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.ExitToApp
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Button
@@ -72,13 +72,14 @@ import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 @Composable
 fun ProfileScreen(
     authViewModel: AuthViewModel = hiltViewModel(),
-    viewModelProduct:ProductViewModel = hiltViewModel(),
+    viewModelProduct: ProductViewModel = hiltViewModel(),
     navController: NavController,
     profileInformations: ProfileInformations,
-    onNewProduct:()->Unit
+    onNewProduct: () -> Unit,
+    onEditProduct: ()->Unit
 ) {
     val listProduct: List<ProductModeltViewModel> by viewModelProduct.listProduct.collectAsState()
-    var openMoreOptions by remember{
+    var openMoreOptions by remember {
         mutableStateOf(false)
     }
     val context = LocalContext.current as Activity
@@ -100,25 +101,42 @@ fun ProfileScreen(
                 modifier = Modifier.align(Alignment.CenterEnd)
             ) {
                 IconButton(onClick = { /*TODO*/ }) {
-                    Icon(painter = painterResource(id = R.drawable.ic_store), contentDescription = null)
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_store),
+                        contentDescription = null
+                    )
                 }
                 IconButton(onClick = { openMoreOptions = true }) {
                     Icon(imageVector = Icons.Default.Settings, contentDescription = null)
                 }
-                DropdownMenu(expanded = openMoreOptions, onDismissRequest = { openMoreOptions = false }) {
+                DropdownMenu(
+                    expanded = openMoreOptions,
+                    onDismissRequest = { openMoreOptions = false }) {
                     DropdownMenuItem(text = {
                         Text(text = stringResource(R.string.novo_produto))
                     }, onClick = { onNewProduct();openMoreOptions = false })
-                    DropdownMenuItem(text = {
-                        Text(text = stringResource(R.string.realizar_venda))
-                    }, onClick = { context.startActivity(Intent(context,PaymentActivity::class.java))})
+                    DropdownMenuItem(
+                        text = {
+                            Text(text = stringResource(R.string.realizar_venda))
+                        },
+                        onClick = {
+                            context.startActivity(
+                                Intent(
+                                    context,
+                                    PaymentActivity::class.java
+                                )
+                            )
+                        })
                     DropdownMenuItem(
                         text = {
                             Row(
                                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Icon(imageVector = Icons.Outlined.ExitToApp, contentDescription = null)
+                                Icon(
+                                    imageVector = Icons.Outlined.ExitToApp,
+                                    contentDescription = null
+                                )
                                 Text(text = "Sair")
                             }
                         },
@@ -138,45 +156,55 @@ fun ProfileScreen(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.padding(16.dp)
-        ){
-            item(span = { GridItemSpan(maxLineSpan) }){
+        ) {
+            item(span = { GridItemSpan(maxLineSpan) }) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(16.dp)
-                ){
+                ) {
                     ComponentImageProfile(56.dp)
-                    Text(text = profileInformations.userName, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(
+                        text = profileInformations.userName,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                     Text(text = profileInformations.userDescription, fontSize = 12.sp)
-                    Row (
+                    Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceAround
-                    ){
-                        val buttonFlower: @Composable RowScope.(Int,String,()->Unit)->Unit = {n,text,onClick->
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .clickable { onClick() }
-                                    .padding(8.dp),
-                                contentAlignment = Alignment.Center
-                            ){
-                                val bs = buildAnnotatedString {
-                                    withStyle(style = SpanStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)){
-                                        append("${n.toString()}\n")
+                    ) {
+                        val buttonFlower: @Composable RowScope.(Int, String, () -> Unit) -> Unit =
+                            { n, text, onClick ->
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .clickable { onClick() }
+                                        .padding(8.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    val bs = buildAnnotatedString {
+                                        withStyle(
+                                            style = SpanStyle(
+                                                fontSize = 18.sp,
+                                                fontWeight = FontWeight.Bold
+                                            )
+                                        ) {
+                                            append("${n.toString()}\n")
+                                        }
+                                        withStyle(style = SpanStyle(fontSize = 12.sp)) {
+                                            append(text)
+                                        }
                                     }
-                                    withStyle(style = SpanStyle(fontSize = 12.sp)){
-                                        append(text)
-                                    }
+                                    Text(text = bs, textAlign = TextAlign.Center)
                                 }
-                                Text(text = bs, textAlign = TextAlign.Center)
                             }
-                        }
-                        buttonFlower(profileInformations.fllowers,"Seguidores"){
+                        buttonFlower(profileInformations.fllowers, "Seguidores") {
                             //TODO
                         }
-                        buttonFlower(profileInformations.fllowing,"Seguindo"){
+                        buttonFlower(profileInformations.fllowing, "Seguindo") {
                             //TODO
                         }
                     }
@@ -190,8 +218,8 @@ fun ProfileScreen(
                     }
                 }
             }
-            if(listProduct.isEmpty()){
-                item(span = { GridItemSpan(maxLineSpan) }){
+            if (listProduct.isEmpty()) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally
@@ -203,18 +231,22 @@ fun ProfileScreen(
                             tint = MaterialTheme.colorScheme.onBackground.copy(0.5f)
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text(text = stringResource(R.string.adicione_seus_produtos).replace("\\n","\n"), fontWeight = FontWeight.Light)
+                        Text(
+                            text = stringResource(R.string.adicione_seus_produtos).replace(
+                                "\\n",
+                                "\n"
+                            ), fontWeight = FontWeight.Light
+                        )
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(onClick = onNewProduct) {
                             Text(text = stringResource(R.string.adicionar_produtos))
                         }
                     }
                 }
-            }
-            else{
+            } else {
                 items(
-                    items =listProduct
-                ){
+                    items = listProduct
+                ) {
                     Column(
                         Modifier
                             .fillMaxWidth()
@@ -225,26 +257,46 @@ fun ProfileScreen(
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .aspectRatio(1f),
-                            contentAlignment = Alignment.Center
-                        ){
+                                .aspectRatio(1f)
+                        ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_product),
                                 contentDescription = null,
-                                modifier = Modifier.size(72.dp),
+                                modifier = Modifier
+                                    .size(72.dp)
+                                    .align(Alignment.Center),
                                 tint = MaterialTheme.colorScheme.onBackground.copy(0.5f)
                             )
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(MaterialTheme.colorScheme.primary)
+                                    .align(Alignment.BottomCenter)
+                                    .clickable { onEditProduct() }
+                            ) {
+                                Icon(
+                                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp).size(16.dp),
+                                    imageVector = Icons.Default.Edit,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onPrimary
+                                )
+                            }
+
                         }
                         Row(
                             Modifier.fillMaxWidth()
                         ) {
-                             Column(
-                                 Modifier.weight(1f)
-                             ) {
-                                 Text(text = it.name, fontSize = 12.sp)
-                                 val mask = CreditCardDoc().mask
-                                 Text(text = mask(it.value.toString()), fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                             }
+                            Column(
+                                Modifier.weight(1f)
+                            ) {
+                                Text(text = it.name, fontSize = 12.sp)
+                                val mask = CreditCardDoc().mask
+                                Text(
+                                    text = mask(it.value.toString()),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 12.sp
+                                )
+                            }
                             IconButton(
                                 onClick = { /*TODO*/ },
                                 modifier = Modifier.size(40.dp)
@@ -277,6 +329,11 @@ fun ProfileScreen(
 @Composable
 fun ProfileScreenPreview() {
     ConfchatTheme {
-        ProfileScreen(navController = rememberNavController(), profileInformations =  ProfileInformations()){}
+        ProfileScreen(
+            navController = rememberNavController(),
+            profileInformations = ProfileInformations(),
+            onEditProduct = {},
+            onNewProduct = {}
+        )
     }
 }

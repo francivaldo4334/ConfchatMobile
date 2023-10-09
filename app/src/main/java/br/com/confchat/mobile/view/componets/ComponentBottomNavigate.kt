@@ -248,13 +248,13 @@ fun ComponentBottomNavigate(onNewProduct:()->Unit,onClick: (String) -> Unit) {
                     contentDescription = null
                 )
             }
-            button(Route.AnonymousChat) {
-                Icon(
-                    tint = it,
-                    painter = painterResource(id = R.drawable.ic_chat),
-                    contentDescription = null
-                )
-            }
+//            button(Route.AnonymousChat) {
+//                Icon(
+//                    tint = it,
+//                    painter = painterResource(id = R.drawable.ic_chat),
+//                    contentDescription = null
+//                )
+//            }
             button(Route.Add) {
                 Box(
                     modifier = Modifier
@@ -270,13 +270,13 @@ fun ComponentBottomNavigate(onNewProduct:()->Unit,onClick: (String) -> Unit) {
                     )
                 }
             }
-            button(Route.Merchant) {
-                Icon(
-                    tint = it,
-                    painter = painterResource(id = R.drawable.ic_store),
-                    contentDescription = null
-                )
-            }
+//            button(Route.Merchant) {
+//                Icon(
+//                    tint = it,
+//                    painter = painterResource(id = R.drawable.ic_store),
+//                    contentDescription = null
+//                )
+//            }
             button(Route.Profile) {
                 Icon(
                     tint = it,

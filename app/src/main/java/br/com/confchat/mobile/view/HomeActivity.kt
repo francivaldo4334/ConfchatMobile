@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
@@ -29,6 +31,7 @@ import br.com.confchat.mobile.view.constants.Route
 import br.com.confchat.mobile.view.screens.ProfileScreen
 import br.com.confchat.mobile.view.screens.ScreenChat
 import br.com.confchat.mobile.view.screens.ScreenContact
+import br.com.confchat.mobile.view.screens.registerEditProductScreen
 import br.com.confchat.mobile.view.screens.registerNewProductScreen
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +47,9 @@ class HomeActivity : ComponentActivity() {
             val listContact : List<ContactViewModel> by viewModel.listContact.collectAsState()
             val profileInformations = ProfileInformations()
             var openScreenNewProduct by remember {
+                mutableStateOf(false)
+            }
+            var openScreenEditProduct by remember {
                 mutableStateOf(false)
             }
             viewModel.loadContacts()
@@ -78,6 +84,9 @@ class HomeActivity : ComponentActivity() {
                                 viewModelProduct = viewModelProduct,
                                 onNewProduct ={
                                     openScreenNewProduct = true
+                                },
+                                onEditProduct = {
+                                    openScreenEditProduct = true
                                 }
                             )
                         }
@@ -104,6 +113,11 @@ class HomeActivity : ComponentActivity() {
                         viewModel = viewModelProduct
                     ){
                         openScreenNewProduct = false;
+                    }
+                    registerEditProductScreen(
+                        openScreenEditProduct,
+                    ){
+                        openScreenEditProduct = false
                     }
                 }
             }
