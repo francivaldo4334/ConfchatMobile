@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
@@ -82,7 +83,8 @@ fun ScreenLogin(navController: NavController,viewModel:AuthViewModel = hiltViewM
         }
         item {
             Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.imePadding()
             ) {
                 Text(text = stringResource(R.string.login), fontSize = 18.sp, modifier = Modifier.padding(start = 32.dp))
                 ComponentTextField1(value = loginOrEmai, onChange = {loginOrEmai = it}, type = TextFieldType.Email)

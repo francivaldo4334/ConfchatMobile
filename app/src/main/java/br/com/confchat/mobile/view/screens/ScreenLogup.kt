@@ -4,9 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imeNestedScroll
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -45,6 +50,7 @@ import br.com.confchat.mobile.view.enums.IconsLayout
 import br.com.confchat.mobile.view.enums.TextFieldType
 import br.com.confchat.mobile.view.ui.theme.ConfchatTheme
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ScreenLogup(navController: NavController,viewModel: AuthViewModel = hiltViewModel()) {
     var login by remember {
@@ -98,7 +104,8 @@ fun ScreenLogup(navController: NavController,viewModel: AuthViewModel = hiltView
         }
         item {
             Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.imePadding()
             ) {
                 ComponentText1(text = stringResource(R.string.logup))
                 Divider(color = MaterialTheme.colorScheme.onBackground)
@@ -140,6 +147,7 @@ fun ScreenLogup(navController: NavController,viewModel: AuthViewModel = hiltView
             ComponentTextLinkLogin {
                 navController.popBackStack()
             }
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }

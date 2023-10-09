@@ -141,19 +141,69 @@ fun ComponentBottomNavigate(onNewProduct:()->Unit,onClick: (String) -> Unit) {
             }
         ))
     }
-    Column(
+    Box(
         modifier = Modifier
-            .fillMaxSize()
-            .background(animatedColor),
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxSize(),
+        contentAlignment = Alignment.BottomCenter
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .background(MaterialTheme.colorScheme.background),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            button(Route.Contact) {
+                Icon(
+                    tint = it,
+                    painter = painterResource(id = R.drawable.ic_contact),
+                    contentDescription = null
+                )
+            }
+//            button(Route.AnonymousChat) {
+//                Icon(
+//                    tint = it,
+//                    painter = painterResource(id = R.drawable.ic_chat),
+//                    contentDescription = null
+//                )
+//            }
+            button(Route.Add) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.primary),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.background
+                    )
+                }
+            }
+//            button(Route.Merchant) {
+//                Icon(
+//                    tint = it,
+//                    painter = painterResource(id = R.drawable.ic_store),
+//                    contentDescription = null
+//                )
+//            }
+            button(Route.Profile) {
+                Icon(
+                    tint = it,
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = null
+                )
+            }
+        }
         AnimatedVisibility(
             visible = openAddMenu,
             enter = scaleIn() + slideInVertically { it },
             exit = scaleOut() + slideOutVertically { it },
             modifier = Modifier
-                .weight(1f)
+                .fillMaxSize()
+                .background(animatedColor)
         ) {
             Box(
                 modifier = Modifier
@@ -169,7 +219,8 @@ fun ComponentBottomNavigate(onNewProduct:()->Unit,onClick: (String) -> Unit) {
                 Card(
                     shape = CustomShapeCardAddMenu(),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background),
-                    elevation = CardDefaults.elevatedCardElevation(defaultElevation = 8.dp)
+                    elevation = CardDefaults.elevatedCardElevation(defaultElevation = 8.dp),
+                    modifier = Modifier.padding(bottom = 56.dp)
                 ) {
                     val bntItem: @Composable (
                         String,
@@ -232,57 +283,6 @@ fun ComponentBottomNavigate(onNewProduct:()->Unit,onClick: (String) -> Unit) {
                             }
                         })
                 }
-            }
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .background(MaterialTheme.colorScheme.background),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            button(Route.Contact) {
-                Icon(
-                    tint = it,
-                    painter = painterResource(id = R.drawable.ic_contact),
-                    contentDescription = null
-                )
-            }
-//            button(Route.AnonymousChat) {
-//                Icon(
-//                    tint = it,
-//                    painter = painterResource(id = R.drawable.ic_chat),
-//                    contentDescription = null
-//                )
-//            }
-            button(Route.Add) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primary),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.background
-                    )
-                }
-            }
-//            button(Route.Merchant) {
-//                Icon(
-//                    tint = it,
-//                    painter = painterResource(id = R.drawable.ic_store),
-//                    contentDescription = null
-//                )
-//            }
-            button(Route.Profile) {
-                Icon(
-                    tint = it,
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = null
-                )
             }
         }
     }

@@ -3,8 +3,10 @@ package br.com.confchat.mobile.view
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.MaterialTheme
@@ -15,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -52,6 +55,7 @@ class HomeActivity : ComponentActivity() {
             var openScreenEditProduct by remember {
                 mutableStateOf(false)
             }
+            val density = LocalDensity.current
             viewModel.loadContacts()
             ConfchatTheme {
                 val navController = rememberNavController()
@@ -59,8 +63,11 @@ class HomeActivity : ComponentActivity() {
                     NavHost(
                         navController = navController,
                         startDestination = Route.Contact,
-                        modifier = Modifier.padding(bottom = 56.dp)
-                    ){
+                        modifier = Modifier
+                                .padding(bottom = 56.dp, top = with(density){
+                                    WindowInsets.statusBars.getTop(density).toDp()
+                                })
+                        ){
                         composable(Route.Contact){
                             ScreenContact(
                                 lsContacts = listContact,
