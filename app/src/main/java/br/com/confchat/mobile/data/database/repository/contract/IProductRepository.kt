@@ -7,4 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface IProductRepository {
     fun creatProduct(product: Product)
     fun getAll(): Flow<List<Product>>
+    fun delete(id: Int)
+    fun update(toModel: Product)
 }

@@ -92,6 +92,9 @@ fun registerNewProductScreen(expanded: Boolean, viewModel: ProductViewModel = hi
                         value = productValue.toInt(),
                         img = ""
                     ))
+                    productValue = ""
+                    productName = ""
+                    onDismiss()
                 }
                 Spacer(modifier = Modifier.height(16.dp))
             }

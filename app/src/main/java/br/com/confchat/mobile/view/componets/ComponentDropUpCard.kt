@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -37,6 +38,7 @@ fun ComponentDropUpCard(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black.copy(0.5f))
+            .imePadding()
     ) {
         Column(
             modifier = Modifier

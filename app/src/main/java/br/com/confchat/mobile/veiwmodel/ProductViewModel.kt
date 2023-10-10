@@ -22,4 +22,12 @@ class ProductViewModel @Inject constructor(private val domain:IProductDomainRepo
     fun creatProduct(it: ProductModeltViewModel){
         domain.createProduct(it)
     }
+
+    fun delete(product: ProductModeltViewModel) {
+        domain.delete(product)
+    }
+
+    fun update(product: ProductModeltViewModel) {
+        domain.update(product)
+    }
 }

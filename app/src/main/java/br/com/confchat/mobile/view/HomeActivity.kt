@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.confchat.mobile.data.database.entitys.Product
 import br.com.confchat.mobile.veiwmodel.AuthViewModel
 import br.com.confchat.mobile.veiwmodel.ChatViewModel
 import br.com.confchat.mobile.veiwmodel.ProductViewModel
@@ -55,6 +56,7 @@ class HomeActivity : ComponentActivity() {
             var openScreenEditProduct by remember {
                 mutableStateOf(false)
             }
+            var editProduct:ProductModeltViewModel = ProductModeltViewModel("","",0)
             val density = LocalDensity.current
             viewModel.loadContacts()
             ConfchatTheme {
@@ -93,6 +95,7 @@ class HomeActivity : ComponentActivity() {
                                     openScreenNewProduct = true
                                 },
                                 onEditProduct = {
+                                    editProduct = it
                                     openScreenEditProduct = true
                                 }
                             )
@@ -123,6 +126,7 @@ class HomeActivity : ComponentActivity() {
                     }
                     registerEditProductScreen(
                         openScreenEditProduct,
+                        product = editProduct
                     ){
                         openScreenEditProduct = false
                     }

@@ -16,4 +16,12 @@ class ProductRepository constructor(private val dao:ProductDao) : IProductReposi
     override fun getAll(): Flow<List<Product>> {
         return dao.getAll()
     }
+
+    override fun delete(id: Int) {
+        dao.delete(id)
+    }
+
+    override fun update(toModel: Product) {
+        dao.update(toModel)
+    }
 }

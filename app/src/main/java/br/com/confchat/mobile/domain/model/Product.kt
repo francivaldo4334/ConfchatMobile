@@ -7,6 +7,14 @@ fun Product.toViewModel(): ProductModeltViewModel{
     return ProductModeltViewModel(
         name = this.name,
         value = this.price,
-        img = ""
+        img = "",
+        id = this.id
+    )
+}
+fun ProductModeltViewModel.toModel():Product{
+    return Product(
+        id = this.id,
+        name = this.name,
+        price = this.value
     )
 }

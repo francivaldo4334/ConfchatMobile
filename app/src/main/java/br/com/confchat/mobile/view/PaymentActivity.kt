@@ -3,10 +3,14 @@ package br.com.confchat.mobile.view
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,10 +34,14 @@ class PaymentActivity: ComponentActivity() {
                 val navController = rememberNavController()
                 val doc = CreditCardDoc()
                 val pagBankViewModel:PagBankViewModel = hiltViewModel()
+                val density = LocalDensity.current
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     NavHost(
                         navController = navController,
-                        startDestination = RoutePay.InsertValue
+                        startDestination = RoutePay.InsertValue,
+                        modifier = Modifier.padding(top = with(density){
+                            androidx.compose.foundation.layout.WindowInsets.statusBars.getTop(density).toDp()
+                        } )
                     ){
                         composable(RoutePay.InsertValue){
                             InsertValuePaymentScreen(navController, doc){

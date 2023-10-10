@@ -59,6 +59,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import br.com.confchat.mobile.R
+import br.com.confchat.mobile.data.database.entitys.Product
 import br.com.confchat.mobile.veiwmodel.AuthViewModel
 import br.com.confchat.mobile.veiwmodel.ProductViewModel
 import br.com.confchat.mobile.veiwmodel.model.ProductModeltViewModel
@@ -76,7 +77,7 @@ fun ProfileScreen(
     navController: NavController,
     profileInformations: ProfileInformations,
     onNewProduct: () -> Unit,
-    onEditProduct: ()->Unit
+    onEditProduct: (ProductModeltViewModel)->Unit
 ) {
     val listProduct: List<ProductModeltViewModel> by viewModelProduct.listProduct.collectAsState()
     var openMoreOptions by remember {
@@ -272,7 +273,7 @@ fun ProfileScreen(
                                     .clip(RoundedCornerShape(8.dp))
                                     .background(MaterialTheme.colorScheme.primary)
                                     .align(Alignment.BottomCenter)
-                                    .clickable { onEditProduct() }
+                                    .clickable { onEditProduct(it) }
                             ) {
                                 Icon(
                                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp).size(16.dp),
@@ -284,7 +285,8 @@ fun ProfileScreen(
 
                         }
                         Row(
-                            Modifier.fillMaxWidth()
+                            Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.Bottom
                         ) {
                             Column(
                                 Modifier.weight(1f)
@@ -297,26 +299,21 @@ fun ProfileScreen(
                                     fontSize = 12.sp
                                 )
                             }
-                            IconButton(
-                                onClick = { /*TODO*/ },
-                                modifier = Modifier.size(40.dp)
-                            ) {
-                                Icon(
-                                    modifier = Modifier.size(20.dp),
-                                    imageVector = Icons.Default.FavoriteBorder,
-                                    contentDescription = null
-                                )
-                            }
-                            IconButton(
-                                onClick = { /*TODO*/ },
-                                modifier = Modifier.size(40.dp)
-                            ) {
-                                Icon(
-                                    modifier = Modifier.size(20.dp),
-                                    imageVector = Icons.Outlined.ShoppingCart,
-                                    contentDescription = null
-                                )
-                            }
+//                            IconButton(
+//                                onClick = { /*TODO*/ },
+//                                modifier = Modifier.size(40.dp)
+//                            ) {
+//                                Icon(
+//                                    modifier = Modifier.size(20.dp),
+//                                    imageVector = Icons.Default.FavoriteBorder,
+//                                    contentDescription = null
+//                                )
+//                            }
+                            Icon(
+                                modifier = Modifier.size(20.dp),
+                                imageVector = Icons.Outlined.ShoppingCart,
+                                contentDescription = null
+                            )
                         }
                     }
                 }
