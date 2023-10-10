@@ -1,7 +1,7 @@
 package br.com.confchat.mobile.domain.model
 
 import br.com.confchat.mobile.data.network.dto.confchat.RegisterDto
-import br.com.confchat.mobile.veiwmodel.model.Register
+import br.com.confchat.mobile.presenter.veiwmodel.model.Register
 
 fun Register.toDto() : RegisterDto {
     val register = RegisterDto()

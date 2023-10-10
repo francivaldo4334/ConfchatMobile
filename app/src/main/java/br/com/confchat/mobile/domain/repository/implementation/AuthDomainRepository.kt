@@ -9,9 +9,9 @@ import br.com.confchat.mobile.data.network.repository.confchat.IUserApiRepositor
 import br.com.confchat.mobile.data.network.response.confchat.ResponseApi
 import br.com.confchat.mobile.domain.model.toDto
 import br.com.confchat.mobile.domain.repository.contract.IAuthDomainRepository
-import br.com.confchat.mobile.veiwmodel.model.Login
-import br.com.confchat.mobile.veiwmodel.model.Register
-import br.com.confchat.mobile.view.constants.AuthDoc
+import br.com.confchat.mobile.presenter.veiwmodel.model.Login
+import br.com.confchat.mobile.presenter.veiwmodel.model.Register
+import br.com.confchat.mobile.presenter.view.constants.AuthDoc
 import java.util.Calendar
 import java.util.Date
 
@@ -90,7 +90,7 @@ class AuthDomainRepository constructor(
         }
     }
 
-    override fun checkVerificationCode(code:String): Boolean {
+    override fun checkVerificationCode(code:String,AuthDoc:AuthDoc): Boolean {
         var check = CheckVerificationCodeDto(
             code = code,
             email = AuthDoc.register.email

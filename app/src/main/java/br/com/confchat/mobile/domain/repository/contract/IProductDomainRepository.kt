@@ -1,7 +1,7 @@
 package br.com.confchat.mobile.domain.repository.contract
 
 import androidx.lifecycle.LiveData
-import br.com.confchat.mobile.veiwmodel.model.ProductModeltViewModel
+import br.com.confchat.mobile.presenter.veiwmodel.model.ProductModeltViewModel
 import kotlinx.coroutines.flow.Flow
 
 interface IProductDomainRepository {

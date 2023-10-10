@@ -1,7 +1,7 @@
 package br.com.confchat.mobile.domain.repository.contract
 
-import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
-import br.com.confchat.mobile.veiwmodel.model.Message
+import br.com.confchat.mobile.presenter.veiwmodel.model.ContactViewModel
+import br.com.confchat.mobile.presenter.veiwmodel.model.Message
 
 interface IChatDomainRepository {
     fun listContact():List<ContactViewModel>

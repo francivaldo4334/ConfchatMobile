@@ -14,7 +14,7 @@ import br.com.confchat.mobile.data.network.dto.pagbank.Item
 import br.com.confchat.mobile.data.network.dto.pagbank.PaymentMethod
 import br.com.confchat.mobile.data.network.repository.pagbank.IApiPagBankRepository
 import br.com.confchat.mobile.domain.repository.contract.IPagBankDomainRepository
-import br.com.confchat.mobile.veiwmodel.model.PaymentCreditCard
+import br.com.confchat.mobile.presenter.veiwmodel.model.PaymentCreditCard
 import java.util.Date
 
 class PagBankDomainRepository constructor(private val doc: IApiPagBankRepository,private val db: IPaymentRepository) :

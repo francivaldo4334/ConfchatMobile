@@ -6,8 +6,8 @@ import br.com.confchat.mobile.data.network.dto.confchat.ChatSendDto
 import br.com.confchat.mobile.data.network.repository.confchat.IChatApiRepository
 import br.com.confchat.mobile.domain.model.toViewModel
 import br.com.confchat.mobile.domain.repository.contract.IChatDomainRepository
-import br.com.confchat.mobile.veiwmodel.model.ContactViewModel
-import br.com.confchat.mobile.veiwmodel.model.Message
+import br.com.confchat.mobile.presenter.veiwmodel.model.ContactViewModel
+import br.com.confchat.mobile.presenter.veiwmodel.model.Message
 
 class ChatDomainRepository constructor(private val chat: IChatApiRepository) :
     IChatDomainRepository {

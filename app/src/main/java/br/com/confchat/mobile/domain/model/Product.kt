@@ -1,7 +1,7 @@
 package br.com.confchat.mobile.domain.model
 
 import br.com.confchat.mobile.data.database.entitys.Product
-import br.com.confchat.mobile.veiwmodel.model.ProductModeltViewModel
+import br.com.confchat.mobile.presenter.veiwmodel.model.ProductModeltViewModel
 
 fun Product.toViewModel(): ProductModeltViewModel{
     return ProductModeltViewModel(

@@ -28,4 +28,6 @@
     <string name="adicionar_produtos">Adicionar produtos</string>
     <string name="novo_produto">Novo Produto</string>
     <string name="realizar_venda">Realizar venda</string>
+    <string name="termos_e_condicoes">Termos e condições</string>
+    <string name="eu_aceito_os_">Eu aceito os</string>
 </resources>

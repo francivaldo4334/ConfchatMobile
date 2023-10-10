@@ -4,7 +4,7 @@ import br.com.confchat.mobile.data.network.repository.confchat.IUserApiRepositor
 import br.com.confchat.mobile.data.network.response.confchat.DeviceApi
 import br.com.confchat.mobile.domain.model.toViewModel
 import br.com.confchat.mobile.domain.repository.contract.IUserDomainRepository
-import br.com.confchat.mobile.veiwmodel.model.Device
+import br.com.confchat.mobile.presenter.veiwmodel.model.Device
 
 class UserDomainRepository constructor(private val user : IUserApiRepository) :
     IUserDomainRepository {

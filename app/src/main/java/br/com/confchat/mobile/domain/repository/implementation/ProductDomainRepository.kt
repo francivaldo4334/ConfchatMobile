@@ -6,7 +6,7 @@ import br.com.confchat.mobile.data.database.repository.contract.IProductReposito
 import br.com.confchat.mobile.domain.model.toModel
 import br.com.confchat.mobile.domain.model.toViewModel
 import br.com.confchat.mobile.domain.repository.contract.IProductDomainRepository
-import br.com.confchat.mobile.veiwmodel.model.ProductModeltViewModel
+import br.com.confchat.mobile.presenter.veiwmodel.model.ProductModeltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
