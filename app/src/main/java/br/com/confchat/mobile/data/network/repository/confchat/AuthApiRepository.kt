@@ -3,6 +3,7 @@ package br.com.confchat.mobile.data.network.repository.confchat
 import br.com.confchat.mobile.data.network.dto.confchat.CheckVerificationCodeDto
 import br.com.confchat.mobile.data.network.dto.confchat.LoginDto
 import br.com.confchat.mobile.data.network.dto.confchat.RegisterDto
+import br.com.confchat.mobile.data.network.dto.confchat.ResetPasswordDto
 import br.com.confchat.mobile.data.network.response.confchat.ResponseApi
 import br.com.confchat.mobile.data.network.response.confchat.ResponseApiString
 import br.com.confchat.mobile.data.network.service.ApiConfchatService
@@ -78,6 +79,33 @@ class AuthApiRepository constructor(private val api: ApiConfchatService): IAuthA
         }
         catch (e : Exception){
             return ResponseApi("Error",503)
+        }
+    }
+
+    override fun sendRequestPassword(it: String): ResponseApi<String> {
+        val call = api.sendRequestPassword(it)
+        try {
+            val response = call.execute()
+            if(response.isSuccessful){
+                return response.body()!!
+            }
+            return Gson().fromJson(response.errorBody()!!.string(),ResponseApiString::class.java)
+        }
+        catch (e:Exception){
+            return ResponseApi("Verifique sua conecao com a internet",501)
+        }
+    }
+
+    override fun resetPassword(it: ResetPasswordDto): ResponseApi<String> {
+        val call = api.resetPassword(it)
+        try {
+            val response = call.execute()
+            if(response.isSuccessful)
+                return response.body()!!
+            return Gson().fromJson(response.errorBody()!!.string(),ResponseApiString::class.java)
+        }
+        catch (e:Exception){
+            return ResponseApi("Verifique sua conecao com a internet",501)
         }
     }
 }

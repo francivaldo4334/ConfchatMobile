@@ -30,4 +30,10 @@
     <string name="realizar_venda">Realizar venda</string>
     <string name="termos_e_condicoes">Termos e condições</string>
     <string name="eu_aceito_os_">Eu aceito os</string>
+    <string name="enviar_email_de_recuperacao">Enviar Email de recuperacao</string>
+    <string name="insira_o_email_associado_a_sua_conta_e_verifique_sua_caixa_de_entrada">Insira o email associado a sua conta e verifique sua caixa de entrada.</string>
+    <string name="recuperacao_de_senha">Recuperacao de senha</string>
+    <string name="redefinir_senha">Redefinir Senha</string>
+    <string name="senha_redefinida">Senha redefinida</string>
+    <string name="verifique_sua_conexao_com_a_internet">Verifique sua conexao com a internet</string>
 </resources>

@@ -2,6 +2,7 @@ package br.com.confchat.mobile.domain.repository.contract
 
 import br.com.confchat.mobile.presenter.veiwmodel.model.Login
 import br.com.confchat.mobile.presenter.veiwmodel.model.Register
+import br.com.confchat.mobile.presenter.veiwmodel.model.ResetPassword
 import br.com.confchat.mobile.presenter.view.constants.AuthDoc
 
 interface IAuthDomainRepository {
@@ -12,4 +13,6 @@ interface IAuthDomainRepository {
     fun checkVerificationCode(code:String,AuthDoc: AuthDoc): Boolean
     fun logout()
     fun resendVerificationCode(it:String): Boolean
+    fun sendRequestPassword(it:String):Boolean
+    fun resetPassword(it:ResetPassword):Boolean
 }

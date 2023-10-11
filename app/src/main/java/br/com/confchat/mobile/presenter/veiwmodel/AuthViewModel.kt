@@ -60,4 +60,23 @@ class AuthViewModel @Inject constructor(private val auth: IAuthDomainRepository)
         }
     }
 
+    fun sendRequestPassword(email: String,function:(Boolean)->Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            var result = auth.sendRequestPassword(email)
+            viewModelScope.launch(Dispatchers.Main) {
+                function(result)
+            }
+        }
+
+    }
+
+    fun RequestPassword(code: String, authDoc: AuthDoc,function:(Boolean)->Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = auth.resetPassword(authDoc.resetPassword)
+            viewModelScope.launch(Dispatchers.Main) {
+                function(result)
+            }
+        }
+    }
+
 }

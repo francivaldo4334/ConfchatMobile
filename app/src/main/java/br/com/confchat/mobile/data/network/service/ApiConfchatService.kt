@@ -4,6 +4,7 @@ import br.com.confchat.mobile.data.network.dto.confchat.ChatSendDto
 import br.com.confchat.mobile.data.network.dto.confchat.CheckVerificationCodeDto
 import br.com.confchat.mobile.data.network.dto.confchat.LoginDto
 import br.com.confchat.mobile.data.network.dto.confchat.RegisterDto
+import br.com.confchat.mobile.data.network.dto.confchat.ResetPasswordDto
 import br.com.confchat.mobile.data.network.response.confchat.ContactApi
 import br.com.confchat.mobile.data.network.response.confchat.DeviceApi
 import br.com.confchat.mobile.data.network.response.confchat.MessageApi
@@ -27,6 +28,10 @@ interface ApiConfchatService {
     fun checkVerificationCode(@Body it: CheckVerificationCodeDto):Call<ResponseApi<String>>
     @PUT("auth/resend-verification-code")
     fun resendVerificationCode(@Query("email") it:String):Call<ResponseApi<String>>
+    @POST("auth/send-password-recovery-email")
+    fun sendRequestPassword(@Query("email")it:String):Call<ResponseApi<String>>
+    @PUT("auth/reset-password")
+    fun resetPassword(@Body it:ResetPasswordDto):Call<ResponseApi<String>>
     @GET("user/loged-devices")
     fun getListDevice(): Call<List<DeviceApi>>
     @GET("user/me")

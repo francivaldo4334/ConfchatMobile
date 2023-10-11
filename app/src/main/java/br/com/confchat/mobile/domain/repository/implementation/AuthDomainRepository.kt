@@ -11,6 +11,7 @@ import br.com.confchat.mobile.domain.model.toDto
 import br.com.confchat.mobile.domain.repository.contract.IAuthDomainRepository
 import br.com.confchat.mobile.presenter.veiwmodel.model.Login
 import br.com.confchat.mobile.presenter.veiwmodel.model.Register
+import br.com.confchat.mobile.presenter.veiwmodel.model.ResetPassword
 import br.com.confchat.mobile.presenter.view.constants.AuthDoc
 import java.util.Calendar
 import java.util.Date
@@ -111,6 +112,22 @@ class AuthDomainRepository constructor(
         var check = auth.resendVerificationCode(it)
         if(check.status == 200)
             return true
+        return false
+    }
+
+    override fun sendRequestPassword(it: String): Boolean {
+        var response = auth.sendRequestPassword(it)
+        if(response.status == 200){
+            return true
+        }
+        return false
+    }
+
+    override fun resetPassword(it: ResetPassword): Boolean {
+        var response = auth.resetPassword(it.toDto())
+        if(response.status == 200){
+            return true
+        }
         return false
     }
 

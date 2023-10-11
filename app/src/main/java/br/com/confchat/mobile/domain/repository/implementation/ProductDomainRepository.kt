@@ -1,9 +1,8 @@
 package br.com.confchat.mobile.domain.repository.implementation
 
-import androidx.lifecycle.LiveData
 import br.com.confchat.mobile.data.database.entitys.Product
 import br.com.confchat.mobile.data.database.repository.contract.IProductRepository
-import br.com.confchat.mobile.domain.model.toModel
+import br.com.confchat.mobile.domain.model.toDto
 import br.com.confchat.mobile.domain.model.toViewModel
 import br.com.confchat.mobile.domain.repository.contract.IProductDomainRepository
 import br.com.confchat.mobile.presenter.veiwmodel.model.ProductModeltViewModel
@@ -27,6 +26,6 @@ class ProductDomainRepository constructor(private val doc:IProductRepository) : 
     }
 
     override fun update(product: ProductModeltViewModel) {
-        doc.update(product.toModel())
+        doc.update(product.toDto())
     }
 }

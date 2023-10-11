@@ -112,7 +112,7 @@ fun ScreenLogin(navController: NavController,AuthDoc:AuthDoc,viewModel:AuthViewM
                     text = AnnotatedString("Esqueci minha senha ;-;", paragraphStyle = ParagraphStyle(textAlign = TextAlign.End)),
                     modifier = Modifier.fillMaxWidth().padding(end = 16.dp),
                     onClick = {
-
+                        navController.navigate(route = Route.SendResetePasssword)
                     },
                 )
                 Spacer(modifier = Modifier.height(16.dp))

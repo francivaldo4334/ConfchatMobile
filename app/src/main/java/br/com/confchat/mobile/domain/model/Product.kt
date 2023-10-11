@@ -11,7 +11,7 @@ fun Product.toViewModel(): ProductModeltViewModel{
         id = this.id
     )
 }
-fun ProductModeltViewModel.toModel():Product{
+fun ProductModeltViewModel.toDto():Product{
     return Product(
         id = this.id,
         name = this.name,
